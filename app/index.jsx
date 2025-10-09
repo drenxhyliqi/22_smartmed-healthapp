@@ -6,7 +6,6 @@ import Background from '../assets/images/background.png';
 const Welcome = () => {
   return (
     <View style={styles.container}>
-      {/* Background Image */}
       <Image 
         source={Background} 
         style={styles.backgroundImage}
