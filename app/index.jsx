@@ -16,7 +16,7 @@ const Welcome = () => {
       <View style={styles.content}>
         <Image source={Logo} style={styles.img} />
         <Text style={styles.title}>Healthcare</Text>
-        <Text style={styles.subtitle}>Medical app, testing github</Text>
+        <Text style={styles.subtitle}>Medical app</Text>
         
       </View>
     </View>
