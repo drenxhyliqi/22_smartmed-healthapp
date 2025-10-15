@@ -16,7 +16,7 @@ const Homepage = () => {
                 <View>
                     <Text style={{ fontSize: 24, color: '#ffffffff', fontWeight: 'bold' }}>Welcome to {"\n"}SmartMed!</Text>
                     <Text style={{ marginTop: 10, color: '#ffffffff' }}>Your health, our priority</Text>
-                    <Text style={{ marginTop: 40 , color: '#d7d7d7ff' }}>How is it going today?</Text>
+                    <Text style={{ marginTop: 40, color: '#d7d7d7ff' }}>How is it going today?</Text>
                 </View>
                 <View>
                    <Image
