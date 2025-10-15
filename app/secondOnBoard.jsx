@@ -42,7 +42,8 @@ const SecondOnBoard = () => {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             paddingHorizontal: 30, 
-            marginTop: 85
+              marginTop: 55,
+            marginBottom: 30
           }}>
             <Image
             source={require('../assets/images/secondFrame.png')}

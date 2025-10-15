@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,7 +42,8 @@ const Onboarding = () => {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             paddingHorizontal: 30, 
-            marginTop: 85
+            marginTop: 55,
+            marginBottom: 30
           }}>
             <Image
             source={require('../assets/images/firstFrame.png')}
