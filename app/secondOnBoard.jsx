@@ -2,17 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 
-const Onboarding = () => {
+const SecondOnBoard = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <Link href={'/start'} style={styles.skipText}>
+          <Link href={'/homepage'} style={styles.skipText}>
               <Text>Skip</Text>
           </Link>
           
 
           <Image
-            source={require('../assets/images/femaledoctor.png')}
+            source={require('../assets/images/maledoctor.png')}
             style={{ width: 450, height: 450, resizeMode: 'contain' }}
           />
           
@@ -21,7 +21,7 @@ const Onboarding = () => {
             <Text style={styles.content}>
             Find a lot of specialist {"\n"} doctors in one place
             </Text>
-          </Link>
+              </Link>
           </View>
           
           <View style={{
@@ -33,7 +33,7 @@ const Onboarding = () => {
             marginTop: 85
           }}>
             <Image
-            source={require('../assets/images/firstFrame.png')}
+            source={require('../assets/images/secondFrame.png')}
             style={{ width: 30, height: 30, resizeMode: 'contain', marginLeft: 20 }}
             />
             {/* Butoni */}
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Onboarding;
+export default SecondOnBoard;

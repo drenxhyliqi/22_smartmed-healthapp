@@ -5,16 +5,22 @@
     "slug": "medical_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
+      "image": "./assets/images/background.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "userInterfaceStyle": "light",
+      "buildNumber": "1.0.0",
+      "splash": {
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+      }
     },
     "android": {
       "adaptiveIcon": {
