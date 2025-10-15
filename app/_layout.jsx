@@ -1,24 +1,17 @@
-import { Stack } from 'expo-router';
+import { Stack, Tabs } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, useColorScheme, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RootLayout = () => {
     return (
-        <>
-            <StatusBar value="auto"></StatusBar>
-        <Stack screenOptions={{ //Shtohet ne te gjitha screenat
-          headerStyle: { backgroundColor: '#407CE2' },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold'
-          }
-            }}>
-                <Stack.Screen name="index" options={{ title: 'Home' }}></Stack.Screen>
-                <Stack.Screen name="onboard" options={{ title: 'Get Started' }}></Stack.Screen>
-                <Stack.Screen name="secondOnBoard" options={{ title: 'Onboard' }}></Stack.Screen>
-                <Stack.Screen name="start" options={{title: 'Lets Start'}}></Stack.Screen>
-                </Stack>
-        </>
+      <Tabs screenOptions={{ headerShown: true }}>
+        <Tabs.Screen name="homepage" options={{ title: 'Homepage'}} />
+        <Tabs.Screen name="index" options={{ title: 'Index', tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="onboard" options={{ title: 'Onboard', tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="secondOnBoard" options={{ title: 'Second Onboard', tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="start" options={{ title: 'Start', tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+      </Tabs>
   );
 };
 

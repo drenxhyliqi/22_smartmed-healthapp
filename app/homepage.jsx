@@ -1,10 +1,7 @@
-import { FlatList, StyleSheet, Text, TextInput, View, Image, ScrollView } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
-<<<<<<< HEAD
-=======
 import { Image } from 'expo-image' 
->>>>>>> 99326f0305800eca542d80a17b47acf389d79bc6
 import { Ionicons } from '@expo/vector-icons'
 
 const Homepage = () => {
@@ -31,7 +28,7 @@ const Homepage = () => {
                 </View>
             </View>
 
-            <ScrollView style={styles.content}>
+            <View style={styles.content}>
                 <View style={styles.inputWrapper}>
                     <Ionicons name="search" size={20} color="#666" style={styles.inputIcon} />
                     <TextInput style={[styles.input, styles.inputWithIcon]} placeholder="Search doctor, drugs, articles..." placeholderTextColor="#666" />
@@ -76,7 +73,7 @@ const Homepage = () => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 50 }}
                 />
-            </ScrollView>
+            </View>
         </View>
     )
 }
@@ -133,7 +130,7 @@ const styles = StyleSheet.create({
     },
     icons: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         marginTop: 20
     },
     topDoctors : {
