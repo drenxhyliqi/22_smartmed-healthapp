@@ -2,15 +2,33 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
 
 const Onboarding = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <Link href={'/start'} style={styles.skipText}>
+          <View style={{
+            width: '100%', 
+            flexDirection: 'row', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            paddingHorizontal: 30, 
+            marginTop: 0
+          }}>
+              <Link href={'/onboard'} disabled>
+                  <Ionicons
+                    name={'bandage'}
+                    size={24}
+                    color={'#407CE2'}
+                    />
+              </Link>
+            
+            {/* Butoni */}
+            <Link href={'/start'} style={styles.skipText}>
               <Text>Skip</Text>
-          </Link>
-          
+            </Link>
+          </View>
 
          <Image
             source={require('../assets/images/maledoctor2.png')}
@@ -54,11 +72,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   skipText: {
-      fontSize: 16,
+     fontSize: 17,
       color: '#555',
       position: 'absolute',
-      top: 25,
-      right: 30
+      right: 30,
+      top: 5,
+      fontWeight: '600'
     },
   nextButton: {
     width: 60,
