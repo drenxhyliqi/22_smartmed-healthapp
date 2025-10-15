@@ -21,6 +21,11 @@ const Index = () => {
         <Link href="/onboard" asChild>
           <Text style={{ color: "#111", fontSize: 16 }}>Shko te Onboard</Text>
       </Link>
+
+       <Link href="/start" asChild>
+          <Text style={{ color: "#111", fontSize: 16 }}>Shko te Start</Text>
+      </Link>
+      
       </View>
     </View>
   );
