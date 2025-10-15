@@ -1,10 +1,7 @@
-import { FlatList, StyleSheet, Text, TextInput, View, Image, ScrollView } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
-<<<<<<< HEAD
-=======
 import { Image } from 'expo-image' 
->>>>>>> 99326f0305800eca542d80a17b47acf389d79bc6
 import { Ionicons } from '@expo/vector-icons'
 
 const Homepage = () => {
