@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
+import { Image } from 'expo-image';
 
 const SecondOnBoard = () => {
     const navigation = useNavigation();
@@ -13,8 +14,10 @@ const SecondOnBoard = () => {
 
           <Image
             source={require('../assets/images/maledoctor.png')}
-            style={{ width: 450, height: 450, resizeMode: 'contain' }}
-          />
+            style={{ width: 450, height: 450 }}
+            contentFit="contain"
+            transition={100}
+            />
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
             <Link href="/">

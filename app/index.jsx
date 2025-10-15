@@ -22,7 +22,7 @@ export default function Index() {
     const timer = setTimeout(() => {
       setLoading(false);
       router.replace("/onboard");
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
-import { Image } from 'react-native' 
+import { Image } from 'expo-image' 
 import { Ionicons } from '@expo/vector-icons'
 
 const Homepage = () => {
@@ -14,7 +14,12 @@ const Homepage = () => {
                     <Text style={{ marginTop: 40 , fontWeight: 'lighter' }}>How is it going today?</Text>
                 </View>
                 <View>
-                    <Image source={require('../assets/images/homepage-banner.png')} style={styles.image} />
+                   <Image
+                    source={require('../assets/images/homepage-banner.png')}
+                    style={{ width: 200, height: '100%' }}
+                    contentFit="contain"
+                    transition={100}
+                    />
                 </View>
             </View>
 
