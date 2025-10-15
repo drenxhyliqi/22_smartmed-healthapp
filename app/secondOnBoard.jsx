@@ -6,7 +6,7 @@ const SecondOnBoard = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <Link href={'/start'} style={styles.skipText}>
+          <Link href={'/homepage'} style={styles.skipText}>
               <Text>Skip</Text>
           </Link>
           
