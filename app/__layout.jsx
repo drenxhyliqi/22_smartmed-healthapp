@@ -5,8 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const RootLayout = () => {
   return (
-    <SafeAreaView>
-      <Text>RootLayout</Text>
+    <SafeAreaView style={styles.RootLayout}>
       <Stack />
     </SafeAreaView>
   )
@@ -14,4 +13,9 @@ const RootLayout = () => {
 
 export default RootLayout
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    RootLayout: {
+        width: '100%',
+        height: '100%'
+    }
+})
