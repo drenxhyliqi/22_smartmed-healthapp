@@ -44,7 +44,7 @@ export default function Index() {
             transition={100}
           />
           <Text style={styles.title}>Healthcare</Text>
-          <Text style={styles.subtitle}>Medical App</Text>
+          <Text style={styles.subtitle}>SmartMed App</Text>
         </Animated.View>
       </View>
     );

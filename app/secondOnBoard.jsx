@@ -8,14 +8,7 @@ const SecondOnBoard = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <View style={{
-            width: '100%', 
-            flexDirection: 'row', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            paddingHorizontal: 30, 
-            marginTop: 0
-          }}>
+          <View style={styles.header}>
               <Link href={'/onboard'}>
                   <Ionicons
                     name={'arrow-back-sharp'}
@@ -39,7 +32,7 @@ const SecondOnBoard = () => {
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
             <Text style={styles.content}>
-            Find a lot of specialist {"\n"} doctors in one place
+            Get advice only from a{"\n"} doctor you believe in
             </Text>
           </View>
           
@@ -69,7 +62,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+        alignItems: 'center',
+    backgroundColor: '#ffff'
   },
   skipText: {
       fontSize: 17,
@@ -93,6 +87,14 @@ const styles = StyleSheet.create({
     content: {
         fontSize: 28,
         fontWeight: '700',
+    },
+        header: {
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 30,
+            paddingBottom: 60,
     }
 });
 
