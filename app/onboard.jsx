@@ -13,8 +13,8 @@ const Onboarding = () => {
           
 
          <Image
-            source={require('../assets/images/femaledoctor.png')}
-            style={{ width: 370, height: 370 }}
+            source={require('../assets/images/maledoctor2.png')}
+            style={{ width: 450, height: 450 }}
             contentFit="contain"
             transition={100}
             />

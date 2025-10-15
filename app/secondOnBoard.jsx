@@ -13,7 +13,7 @@ const SecondOnBoard = () => {
           
 
           <Image
-            source={require('../assets/images/maledoctor.png')}
+            source={require('../assets/images/femaledoctor.png')}
             style={{ width: 450, height: 450 }}
             contentFit="contain"
             transition={100}
