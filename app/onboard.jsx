@@ -8,14 +8,7 @@ const Onboarding = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <View style={{
-            width: '100%', 
-            flexDirection: 'row', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            paddingHorizontal: 30, 
-            marginTop: 0
-          }}>
+          <View style={styles.header}>
               <Link href={'/onboard'} disabled>
                   <Ionicons
                     name={'bandage'}
@@ -69,7 +62,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff'
   },
   skipText: {
      fontSize: 17,
@@ -93,6 +87,14 @@ const styles = StyleSheet.create({
     content: {
         fontSize: 28,
         fontWeight: '700',
+    },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 30,
+        paddingBottom: 60,
     }
 });
 
