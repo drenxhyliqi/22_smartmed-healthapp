@@ -1,13 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 
 export default function Start() {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/images/healthcare2.png')}
-        style={styles.image}
-      />
+            source={require('../assets/images/healthcare2.png')}
+            style={styles.image}
+            contentFit="contain"
+            transition={100}
+            />
 
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>Login to Stay healthy and fit</Text>

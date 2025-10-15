@@ -1,10 +1,15 @@
-import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import { Image } from 'expo-image' 
 import { Ionicons } from '@expo/vector-icons'
 
 const Homepage = () => {
+    const articles = [
+        { id: '1', title: 'The 25 Healthiest Fruits You Can Eat, According to a Nutritionist', image: require('../assets/images/l2.png'), date: 'Jun 11, 20223' },
+        { id: '2', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 10, 20223' },
+        { id: '3', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 9, 20223' },
+    ]
     return (
         <View style={styles.container}>
             <View style={styles.banner}>
@@ -55,9 +60,19 @@ const Homepage = () => {
                     </View>
                 </View>
 
-                <FlatList>
-                    
-                </FlatList>
+                <FlatList
+                    data={articles}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.listItem}>
+                            <Image source={item.image} style={styles.listImage} />
+                            <Text style={styles.listTitle} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
+                            <Text numberOfLines={1}>{item.date}</Text>
+                        </View>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 50 }}
+                />
             </View>
         </View>
     )
@@ -68,8 +83,7 @@ export default Homepage
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ace8ffff',
-        height: '100%',
-        width: '100%'
+        flex: 1,
     },
     banner: {
         height: 300,
@@ -89,7 +103,7 @@ const styles = StyleSheet.create({
     content: {
         padding: 20,
         backgroundColor: '#ffffffff',
-        height: '100%',
+        flex: 1,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
@@ -116,7 +130,7 @@ const styles = StyleSheet.create({
     },
     icons: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         marginTop: 20
     },
     topDoctors : {
@@ -133,5 +147,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#407CE2',
         padding: 15,
         borderRadius: 30
+    },
+    listItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 12,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#eee',
+        marginTop: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    listImage: {
+        width: 64,
+        height: 64,
+        borderRadius: 10,
+        marginRight: 12,
+        resizeMode: 'cover'
+    },
+    listTitle: {
+        fontSize: 16,
+        fontWeight: '600',
+        flexShrink: 1
     }
 })
