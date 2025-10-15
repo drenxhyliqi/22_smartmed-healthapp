@@ -7,7 +7,7 @@ const SecondOnBoard = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <Link href={'/homepage'} style={styles.skipText}>
+          <Link href={'/start'} style={styles.skipText}>
               <Text>Skip</Text>
           </Link>
           
@@ -20,11 +20,9 @@ const SecondOnBoard = () => {
             />
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
-            <Link href="/">
             <Text style={styles.content}>
             Find a lot of specialist {"\n"} doctors in one place
             </Text>
-              </Link>
           </View>
           
           <View style={{
@@ -40,7 +38,7 @@ const SecondOnBoard = () => {
             style={{ width: 30, height: 30, resizeMode: 'contain', marginLeft: 20 }}
             />
             {/* Butoni */}
-          <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('secondOnBoard')}>
+          <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('start')}>
             <Text style={{ fontSize: 24, color: '#f9f9f9' }}>⮕</Text>
           </TouchableOpacity>
           </View>
