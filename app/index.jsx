@@ -12,14 +12,12 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // animacion fade-in
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
       useNativeDriver: true,
     }).start();
 
-    // pas 4 sekondash navigon në faqen onboard
     const timer = setTimeout(() => {
       setLoading(false);
       router.replace("/onboard");
@@ -31,7 +29,6 @@ export default function Index() {
   if (loading) {
   return (
       <View style={styles.container}>
-        {/* Background image me expo-image */}
         <Image
           source={require('../assets/images/background.png')}
           style={styles.backgroundImage}

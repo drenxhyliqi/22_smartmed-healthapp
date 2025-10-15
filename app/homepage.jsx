@@ -14,9 +14,9 @@ const Homepage = () => {
         <View style={styles.container}>
             <View style={styles.banner}>
                 <View>
-                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Welcome to {"\n"}SmartMed!</Text>
-                    <Text style={{ marginTop: 10 }}>Your health, our priority</Text>
-                    <Text style={{ marginTop: 40 , fontWeight: 'lighter' }}>How is it going today?</Text>
+                    <Text style={{ fontSize: 24, color: '#ffffffff', fontWeight: 'bold' }}>Welcome to {"\n"}SmartMed!</Text>
+                    <Text style={{ marginTop: 10, color: '#ffffffff' }}>Your health, our priority</Text>
+                    <Text style={{ marginTop: 40 , color: '#d7d7d7ff' }}>How is it going today?</Text>
                 </View>
                 <View>
                    <Image
@@ -82,7 +82,7 @@ export default Homepage
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ace8ffff',
+        backgroundColor: '#407CE2',
         flex: 1,
     },
     banner: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingStart: 25,
         paddingEnd: 20,
-        paddingEnd: 20
+        paddingEnd: 20,
     },
     image: {
         paddingTop: 30,
