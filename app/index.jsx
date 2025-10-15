@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image ,StyleSheet,TouchableOpacity } from 'react-native';
 import Logo from '../assets/images/logo.png';
 import Background from '../assets/images/background.png';
+import { Link } from 'expo-router';
 
 const Index = () => {
   return (
@@ -17,6 +18,9 @@ const Index = () => {
         <Image source={Logo} style={styles.img} />
         <Text style={styles.title}>Healthcare</Text>
         <Text style={styles.subtitle}>Medical app</Text>
+        <Link href="/onboard" asChild>
+          <Text style={{ color: "#111", fontSize: 16 }}>Shko te Onboard</Text>
+      </Link>
       </View>
     </View>
   );

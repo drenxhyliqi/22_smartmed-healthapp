@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Link } from 'expo-router';
 
 const onboarding = () => {
   return (
@@ -7,7 +8,10 @@ const onboarding = () => {
           <Text style={styles.text}>Hello, World!</Text>
           <TouchableOpacity style={styles.nextButton}>
           <Text style={{ fontSize: 24, color: '#f9f9f9' }}>⮕</Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <Link href="/">
+            <Text style={{ color: "#111", fontSize: 16, marginTop:20 }}>Shko te Home</Text>
+          </Link>
     </View>
   );
 };
