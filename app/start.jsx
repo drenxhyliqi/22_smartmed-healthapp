@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
+import { useNavigation } from 'expo-router';
 
 export default function Start() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Image
@@ -15,7 +17,7 @@ export default function Start() {
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>Login to Stay healthy and fit</Text>
       
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('homepage')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 

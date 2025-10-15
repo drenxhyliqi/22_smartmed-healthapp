@@ -14,17 +14,15 @@ const Onboarding = () => {
 
          <Image
             source={require('../assets/images/femaledoctor.png')}
-            style={{ width: 450, height: 450 }}
+            style={{ width: 370, height: 370 }}
             contentFit="contain"
             transition={100}
             />
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
-            <Link href="/">
             <Text style={styles.content}>
             Find a lot of specialist {"\n"} doctors in one place
             </Text>
-          </Link>
           </View>
           
           <View style={{
