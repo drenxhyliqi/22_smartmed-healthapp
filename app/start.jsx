@@ -1,18 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
+import { useNavigation } from 'expo-router';
 
 export default function Start() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/images/healthcare2.png')}
-        style={styles.image}
-      />
+            source={require('../assets/images/healthcare2.png')}
+            style={styles.image}
+            contentFit="contain"
+            transition={100}
+            />
 
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>Login to Stay healthy and fit</Text>
       
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('homepage')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
@@ -31,6 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff'
     
   },
   image: {

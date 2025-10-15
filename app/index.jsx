@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { View, Image, StyleSheet, Text, Animated, Dimensions } from "react-native";
+import { View, StyleSheet, Text, Animated, Dimensions, ImageBackground } from "react-native";
 import { useRouter } from "expo-router";
-import Logo from "../assets/images/logo.png";
+import { Image } from 'expo-image';
+import Background from "../assets/images/background.png";
 
 const { width, height } = Dimensions.get("window");
 
@@ -11,14 +12,12 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // animacion fade-in
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
       useNativeDriver: true,
     }).start();
 
-    // pas 4 sekondash navigon në faqen onboard
     const timer = setTimeout(() => {
       setLoading(false);
       router.replace("/onboard");
@@ -28,12 +27,24 @@ export default function Index() {
   }, []);
 
   if (loading) {
-    return (
+  return (
       <View style={styles.container}>
+        <Image
+          source={require('../assets/images/background.png')}
+          style={styles.backgroundImage}
+          contentFit="cover"
+          transition={100}
+        />
+        
         <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
-          <Image source={Logo} style={styles.logo} />
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={styles.logo}
+            contentFit="contain"
+            transition={100}
+          />
           <Text style={styles.title}>Healthcare</Text>
-          <Text style={styles.subtitle}>Medical App</Text>
+          <Text style={styles.subtitle}>SmartMed App</Text>
         </Animated.View>
       </View>
     );
@@ -49,7 +60,12 @@ const styles = StyleSheet.create({
     height,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffffff",
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    opacity: 0.4
   },
   overlay: {
     justifyContent: "center",
@@ -60,7 +76,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     marginBottom: 25,
-    resizeMode: "contain",
   },
   title: {
     fontSize: 36,

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "scheme": "medical_app",
-    "name": "medical_app",
-    "slug": "medical_app",
+    "scheme": "SmartMed App",
+    "name": "SmartMed App",
+    "slug": "SmartMed App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/images/logo_resize.png",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/background.png",
@@ -30,7 +30,7 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/logo.png"
     },
     "plugins": [
       "expo-router"

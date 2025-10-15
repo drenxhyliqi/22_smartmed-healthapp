@@ -1,24 +1,51 @@
-import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, Tabs } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, useColorScheme, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RootLayout = () => {
-    return (
-        <>
-            <StatusBar value="auto"></StatusBar>
-        <Stack screenOptions={{ //Shtohet ne te gjitha screenat
-          headerStyle: { backgroundColor: '#407CE2' },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold'
-          }
-            }}>
-                <Stack.Screen name="index" options={{ title: 'Home' }}></Stack.Screen>
-                <Stack.Screen name="onboard" options={{ title: 'Get Started' }}></Stack.Screen>
-                <Stack.Screen name="secondOnBoard" options={{title: 'Onboard'}}></Stack.Screen>
-                </Stack>
-        </>
+  return (
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { height: 70 },
+        }}
+      >
+        <Tabs.Screen
+          name="homepage"
+          options={{
+            title: 'Homepage',
+            tabBarIcon: ({ focused, color, size }) => (
+              <Ionicons
+                name={focused ? 'home' : 'home-outline'}
+                size={30}
+                color={focused ? '#407CE2' : '#999'}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="myprofile"
+          options={{
+            title: 'My Profile',
+            tabBarIcon: ({ focused, color, size }) => (
+              <Ionicons
+                name={focused ? 'people-circle' : 'people-circle-outline'}
+                size={30}
+                color={focused ? '#407CE2' : '#999'}
+              />
+            ),
+          }}
+        />
+        
+        <Tabs.Screen name="index" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="onboard" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="secondOnBoard" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="start" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="signin" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+      </Tabs>
+    </SafeAreaView>
   );
 };
-
 export default RootLayout;

@@ -2,29 +2,38 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
 
 const SecondOnBoard = () => {
     const navigation = useNavigation();
   return (
       <View style={styles.container}>
-          <Link href={'/homepage'} style={styles.skipText}>
+          <View style={styles.header}>
+              <Link href={'/onboard'}>
+                  <Ionicons
+                    name={'arrow-back-sharp'}
+                    size={24}
+                    color={'#407CE2'}
+                    />
+              </Link>
+            
+            {/* Butoni */}
+            <Link href={'/start'} style={styles.skipText}>
               <Text>Skip</Text>
-          </Link>
-          
+            </Link>
+          </View>
 
           <Image
-            source={require('../assets/images/maledoctor.png')}
+            source={require('../assets/images/femaledoctor.png')}
             style={{ width: 450, height: 450 }}
             contentFit="contain"
             transition={100}
             />
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
-            <Link href="/">
             <Text style={styles.content}>
-            Find a lot of specialist {"\n"} doctors in one place
+            Get advice only from a{"\n"} doctor you believe in
             </Text>
-              </Link>
           </View>
           
           <View style={{
@@ -33,14 +42,15 @@ const SecondOnBoard = () => {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             paddingHorizontal: 30, 
-            marginTop: 85
+              marginTop: 55,
+            marginBottom: 30
           }}>
             <Image
             source={require('../assets/images/secondFrame.png')}
             style={{ width: 30, height: 30, resizeMode: 'contain', marginLeft: 20 }}
             />
             {/* Butoni */}
-          <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('secondOnBoard')}>
+          <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('start')}>
             <Text style={{ fontSize: 24, color: '#f9f9f9' }}>⮕</Text>
           </TouchableOpacity>
           </View>
@@ -53,14 +63,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+        alignItems: 'center',
+    backgroundColor: '#ffff'
   },
   skipText: {
-      fontSize: 16,
+      fontSize: 17,
       color: '#555',
       position: 'absolute',
-      top: 25,
-      right: 30
+      right: 30,
+      top: 5,
+      fontWeight: '600'
     },
   nextButton: {
     width: 60,
@@ -76,6 +88,14 @@ const styles = StyleSheet.create({
     content: {
         fontSize: 28,
         fontWeight: '700',
+    },
+        header: {
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 30,
+            paddingBottom: 60,
     }
 });
 
