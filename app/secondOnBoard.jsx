@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#555',
       position: 'absolute',
-      top: 10,
+      top: 25,
       right: 30
     },
   nextButton: {
