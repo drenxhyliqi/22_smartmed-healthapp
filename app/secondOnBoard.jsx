@@ -22,9 +22,6 @@ const SecondOnBoard = () => {
             Find a lot of specialist {"\n"} doctors in one place
             </Text>
               </Link>
-              <Link href={'/onboard'}>
-              <Text>Go Back</Text>
-          </Link>
           </View>
           
           <View style={{
