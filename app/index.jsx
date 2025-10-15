@@ -3,7 +3,7 @@ import { View, Text, Image ,StyleSheet } from 'react-native';
 import Logo from '../assets/images/logo.png';
 import Background from '../assets/images/background.png';
 
-const Welcome = () => {
+const Index = () => {
   return (
     <View style={styles.container}>
       <Image 
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Welcome;
+export default Index;
