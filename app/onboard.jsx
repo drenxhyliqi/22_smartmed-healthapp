@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
+import { Image } from 'expo-image';
 
 const Onboarding = () => {
     const navigation = useNavigation();
@@ -11,10 +12,12 @@ const Onboarding = () => {
           </Link>
           
 
-          <Image
+         <Image
             source={require('../assets/images/femaledoctor.png')}
-            style={{ width: 450, height: 450, resizeMode: 'contain' }}
-          />
+            style={{ width: 450, height: 450 }}
+            contentFit="contain"
+            transition={100}
+            />
           
           <View style={{ width: '100%', alignItems: 'flex-start', paddingHorizontal: 50, marginTop: 40}}>
             <Link href="/">

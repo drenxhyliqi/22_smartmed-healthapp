@@ -14,8 +14,9 @@ const RootLayout = () => {
           }
             }}>
                 <Stack.Screen name="index" options={{ title: 'Home' }}></Stack.Screen>
-                <Stack.Screen name="onboard" options={{ title: 'Onboard' }}></Stack.Screen>
-                <Stack.Screen name="secondOnBoard" options={{title: 'Onboard'}}></Stack.Screen>
+                <Stack.Screen name="onboard" options={{ title: 'Get Started' }}></Stack.Screen>
+                <Stack.Screen name="secondOnBoard" options={{ title: 'Onboard' }}></Stack.Screen>
+                <Stack.Screen name="start" options={{title: 'Lets Start'}}></Stack.Screen>
                 </Stack>
         </>
   );
