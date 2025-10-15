@@ -5,7 +5,6 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 export default function ProfileScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'center', paddingBottom: 30 }}>
-      {/* Avatar */}
       <Image
         source={require('../assets/images/profile_pic.png')} 
         style={styles.profileImage}
@@ -30,7 +29,6 @@ export default function ProfileScreen() {
   );
 }
 
-// StatCard komponenti
 const StatCard = ({ icon, value, label }) => (
   <View style={styles.statCard}>
     {icon}
@@ -39,7 +37,6 @@ const StatCard = ({ icon, value, label }) => (
   </View>
 );
 
-// MenuItem komponenti me ikonë rrethore dhe mbishkrim stili
 const MenuItem = ({ icon, label }) => (
   <TouchableOpacity style={styles.menuItem}>
     <View style={styles.iconCircle}>
