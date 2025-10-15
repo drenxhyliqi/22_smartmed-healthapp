@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image ,StyleSheet } from 'react-native';
+import { View, Text, Image ,StyleSheet,TouchableOpacity } from 'react-native';
 import Logo from '../assets/images/logo.png';
 import Background from '../assets/images/background.png';
 
@@ -17,7 +17,6 @@ const Index = () => {
         <Image source={Logo} style={styles.img} />
         <Text style={styles.title}>Healthcare</Text>
         <Text style={styles.subtitle}>Medical app</Text>
-        
       </View>
     </View>
   );
