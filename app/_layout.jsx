@@ -43,6 +43,7 @@ const RootLayout = () => {
         <Tabs.Screen name="onboard" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
         <Tabs.Screen name="secondOnBoard" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
         <Tabs.Screen name="start" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+        <Tabs.Screen name="signin" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
       </Tabs>
     </SafeAreaView>
   );
