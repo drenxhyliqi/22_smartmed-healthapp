@@ -19,7 +19,7 @@ const Signin = () => {
               name={'mail'}
               size={24}
               color={'#ddd'}/>
-          <TextInput placeholder="Email" style={styles.placeholders} ></TextInput>
+          <TextInput placeholder="Email" style={styles.placeholders} placeholderTextColor="#999"></TextInput>
         </View>
         <View>
           <Ionicons
