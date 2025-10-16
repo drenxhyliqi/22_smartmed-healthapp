@@ -10,6 +10,7 @@ const RootLayout = () => {
         screenOptions={{
           headerShown: false,
           tabBarStyle: { height: 70 },
+          headerBackground: '#ffffffff'
         }}
       >
         <Tabs.Screen
