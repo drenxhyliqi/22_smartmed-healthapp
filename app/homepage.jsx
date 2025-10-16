@@ -12,6 +12,12 @@ const Homepage = () => {
     ]
     return (
         <View style={styles.container}>
+            <Link href={'/start'} style={styles.goBack}>
+                  <Ionicons
+                    name={'arrow-back-sharp'}
+                    size={24}
+                    color={'#f9f9f9'}/>
+            </Link>
             <View style={styles.banner}>
                 <View>
                     <Text style={{ fontSize: 24, color: '#ffffffff', fontWeight: 'bold' }}>Welcome to {"\n"}SmartMed!</Text>
@@ -91,7 +97,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         paddingStart: 25,
-        paddingEnd: 20,
         paddingEnd: 20,
     },
     image: {
@@ -173,5 +178,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         flexShrink: 1
+    },
+    goBack: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        padding: 8,
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: 10,
     }
 })

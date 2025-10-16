@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 
 export default function ProfileScreen() {
   return (
@@ -8,7 +9,7 @@ export default function ProfileScreen() {
       <Image
         source={require('../assets/images/profile_pic.png')} 
         style={styles.profileImage}
-        resizeMode="cover"
+      
       />
       <Text style={styles.name}>Ruchita</Text>
 
@@ -60,6 +61,8 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     marginBottom: 15,
+    contentFit: "cover",
+    transition: 100
   },
   name: {
     fontSize: 22,

@@ -17,12 +17,12 @@ export default function Start() {
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>Login to Stay healthy and fit</Text>
       
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('homepage')}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('signin')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
         <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('homepage')}>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
         
