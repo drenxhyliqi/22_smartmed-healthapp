@@ -1,8 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
+import { useState } from 'react'
+import { useNavigation } from 'expo-router';
 
 const Signin = () => {
+  const [password, setPassword] = useState('');
+  const [secure, setSecure] = useState(true);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Sign In</Text>
@@ -13,21 +18,40 @@ const Signin = () => {
               name={'mail'}
               size={24}
               color={'#ddd'}/>
-          <TextInput placeholder="Email" style={styles.placeholders}></TextInput>
+          <TextInput placeholder="Email" style={styles.placeholders} ></TextInput>
         </View>
         <View>
           <Ionicons
-              style={styles.icon}
-              name={'lock-closed-sharp'}
-              size={24}
-              color={'#ddd'}/>
-          <TextInput placeholder="Password" style={styles.placeholders}></TextInput>
+            style={styles.icon}
+            name={'lock-closed-sharp'}
+            size={24}
+            color={'#ddd'}
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={secure}
+            style={styles.placeholders}
+            autoCapitalize="none"
+            placeholderTextColor="#999"
+          />
+          <TouchableOpacity
+            onPress={() => setSecure(!secure)}
+            style={styles.eyeButton}
+          >
+            <Ionicons
+              name={secure ? 'eye-off' : 'eye'}
+              size={22}
+              color="#777"
+            />
+          </TouchableOpacity>
         </View>
         <Text style={styles.forgotPass}>
           Forgot Password?
         </Text>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('homepage')}>
         <Text style={{ color: '#f9f9f9', fontSize: 19, fontWeight: '600'}}> Sign In</Text>
       </TouchableOpacity>
       <Text style={{marginTop: 10, fontSize: 17}}>
@@ -138,7 +162,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 300,
     alignItems: 'left',
-  }
+  },
+  eyeButton: {
+    position: 'absolute',
+    right: 25,
+    top: 40,
+    zIndex: 10,
+    padding: 4,
+  },
 });
 
 export default Signin;
