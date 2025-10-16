@@ -8,7 +8,8 @@ const Homepage = () => {
     const articles = [
         { id: '1', title: 'The 25 Healthiest Fruits You Can Eat, According to a Nutritionist', image: require('../assets/images/l2.png'), date: 'Jun 11, 20223' },
         { id: '2', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 10, 20223' },
-        { id: '3', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 9, 20223' },
+        { id: '3', title: 'The 25 Healthiest Fruits You Can Eat, According to a Nutritionist', image: require('../assets/images/l2.png'), date: 'Jun 9, 20223' },
+        { id: '4', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 8, 20223' },
     ]
     return (
         <View style={styles.container}>
@@ -55,7 +56,7 @@ const Homepage = () => {
                     </View>
                 </View>
 
-                <View style={{ marginTop: 30, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={{ marginTop: 30, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10 }}>
                     <View>
                         <Text style={{ fontSize: 20, fontWeight: 'bold'}}>Health article</Text>
                     </View>
