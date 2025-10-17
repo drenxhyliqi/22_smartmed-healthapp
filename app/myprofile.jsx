@@ -2,31 +2,49 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from 'expo-router';
+
 
 export default function ProfileScreen() {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'center', paddingBottom: 30 }}>
-      <Image
-        source={require('../assets/images/profile_pic.png')} 
-        style={styles.profileImage}
-      
-      />
-      <Text style={styles.name}>Ruchita</Text>
+    <View style={styles.screen}>
+        <View style={styles.headerContent}>
+          <Image
+            source={require('../assets/images/profile_pic.png')}
+            style={styles.profileImage}
+          />
+          <Text style={styles.name}>Ruchita</Text>
 
-      <View style={styles.statsContainer}>
-        <StatCard icon={<FontAwesome name="heart" size={24} color="#4F8EF7" />} value="215 bpm" label="Heart Rate" />
-        <StatCard icon={<Ionicons name="flame" size={24} color="#4F8EF7" />} value="756 cal" label="Calories" />
-        <StatCard icon={<FontAwesome name="balance-scale" size={24} color="#4F8EF7" />} value="103 lbs" label="Weight" />
-      </View>
+          <View style={styles.statsContainer}>
+            <StatCard
+              icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />}
+              value="215 bpm"
+              label="Heart Rate"
+            />
+            <StatCard
+              icon={<Ionicons name="flame" size={22} color="#4F8EF7" />}
+              value="756 cal"
+              label="Calories"
+            />
+            <StatCard
+              icon={<FontAwesome name="balance-scale" size={22} color="#4F8EF7" />}
+              value="103 lbs"
+              label="Weight"
+            />
+          </View>
+        </View>
 
-      <View style={styles.menuContainer}>
-        <MenuItem icon="heart-outline" label="My Saved" />
-        <MenuItem icon="calendar-outline" label="Appointment" />
-        <MenuItem icon="card-outline" label="Payment Method" />
-        <MenuItem icon="help-circle-outline" label="FAQs" />
-        <MenuItem icon="log-out-outline" label="Logout" />
+      <View style={styles.contentWrapper}>
+        <ScrollView contentContainerStyle={styles.menuContainer}>
+          <MenuItem icon="heart-outline" label="My Saved" target="signin" />
+          <MenuItem icon="calendar-outline" label="Appointment" target="signin"/>
+          <MenuItem icon="card-outline" label="Payment Method"target="signin" />
+          <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
+          <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -38,56 +56,65 @@ const StatCard = ({ icon, value, label }) => (
   </View>
 );
 
-const MenuItem = ({ icon, label }) => (
-  <TouchableOpacity style={styles.menuItem}>
-    <View style={styles.iconCircle}>
-      <Ionicons name={icon} size={22} color="#4F8EF7"/>
-    </View>
-    <Text style={[styles.menuText, { fontWeight: 'bold' }]}>
-      {label}
-    </Text>
-    <Ionicons name="chevron-forward-outline" size={20} color="#999" />
-  </TouchableOpacity>
-);
+const MenuItem = ({ icon, label, target }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      style={styles.menuItem}
+      onPress={() => navigation.navigate(target)}
+    >
+      <View style={styles.iconCircle}>
+        <Ionicons name={icon} size={22} color="#4F8EF7" />
+      </View>
+      <Text style={[styles.menuText, { fontWeight: 'bold' }]}>{label}</Text>
+      <Ionicons name="chevron-forward-outline" size={20} color="#999" />
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 50,
+    backgroundColor: '#407CE2'
+  },
+  headerGradient: {
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
+    paddingVertical: 40,
+    alignItems: 'center',
+  },
+  headerContent: {
+    alignItems: 'center',
+    marginTop:50,
   },
   profileImage: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    marginBottom: 15,
-    contentFit: "cover",
-    transition: 100
+    borderWidth: 3,
+    borderColor: '#fff',
+    marginBottom: 10,
+    contentFit: 'cover',
   },
   name: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#fff',
     marginBottom: 25,
-    color: '#223A6A',
   },
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '90%',
-    marginBottom: 30,
   },
   statCard: {
     alignItems: 'center',
-    backgroundColor: '#F0F4FF',
+    backgroundColor: '#fff',
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 15,
     width: 100,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
   },
   statValue: {
     fontSize: 16,
@@ -101,9 +128,20 @@ const styles = StyleSheet.create({
     marginTop: 3,
     textAlign: 'center',
   },
+  contentWrapper: {
+    flex: 1,
+    marginTop: 30,
+    borderTopLeftRadius:30,
+    borderTopRightRadius:30,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+  },
   menuContainer: {
-    width: '100%',
-    paddingHorizontal:10,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
   },
   menuItem: {
     flexDirection: 'row',
@@ -112,6 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
+    borderRadius: 10,
   },
   menuText: {
     fontSize: 18,
@@ -120,12 +159,12 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   iconCircle: {
-  width: 40,                 
-  height: 40,
-  borderRadius: 20,          
-  backgroundColor: '#E0F0FF',
-  alignItems: 'center',       
-  justifyContent: 'center',   
-  marginRight: 15,           
-  }
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#E0F0FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 15,
+  },
 });

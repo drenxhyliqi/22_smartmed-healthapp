@@ -10,7 +10,9 @@ const RootLayout = () => {
         screenOptions={{
           headerShown: false,
           tabBarStyle: { height: 70 },
-          headerBackground: '#ffffffff'
+          headerBackground: '#ffffffff',
+          animation:"shift",
+          gestureEnabled: true, // nuk funksionin per tabs vetem per stack
         }}
       >
         <Tabs.Screen
