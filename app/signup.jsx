@@ -84,7 +84,7 @@ const Signup = () => {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('homepage')}>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
 
