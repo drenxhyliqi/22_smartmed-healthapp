@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { useNavigation } from 'expo-router';
+import { Link } from 'expo-router';
 
 const Signin = () => {
   const [password, setPassword] = useState('');
@@ -18,7 +19,7 @@ const Signin = () => {
               name={'mail'}
               size={24}
               color={'#ddd'}/>
-          <TextInput placeholder="Email" style={styles.placeholders} ></TextInput>
+          <TextInput placeholder="Email" style={styles.placeholders} placeholderTextColor="#999"></TextInput>
         </View>
         <View>
           <Ionicons
@@ -54,9 +55,16 @@ const Signin = () => {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('homepage')}>
         <Text style={{ color: '#f9f9f9', fontSize: 19, fontWeight: '600'}}> Sign In</Text>
       </TouchableOpacity>
-      <Text style={{marginTop: 10, fontSize: 17}}>
-        Don't have an account? <Text style={{ color: '#407CE2', fontWeight: '700' }}> Sign Up</Text>
-      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10 }}>
+        <Text style={{ fontSize: 17 }}>Don't have an account?</Text>
+        <Text
+          onPress={() => navigation.navigate('signup')}
+          style={{ color: '#407CE2', fontWeight: '700', fontSize: 17, marginLeft: 8 }}>
+          Sign Up
+        </Text>
+      </View>
+
+      
       <View style={styles.divider}>
         <View style={styles.line} />
         <Text style={styles.orText}>OR</Text>
@@ -65,7 +73,7 @@ const Signin = () => {
       <View>
         <TouchableOpacity style={styles.signinButtons}>
           <Ionicons
-              style={{ position: 'absolute', left: 15, top: 8 }}
+              style={{ position: 'absolute', left: 25, top: 8 }}
               name={'logo-google'}
               size={24}
               color={'#DB4437'}/>
@@ -75,7 +83,7 @@ const Signin = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.signinButtons}>
           <Ionicons
-              style={{ position: 'absolute', left: 15, top: 8 }}
+              style={{ position: 'absolute', left: 25, top: 8 }}
               name={'logo-facebook'}
               size={24}
               color={'#407CE2'}/>
@@ -96,10 +104,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   text: {
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: '700',
     marginTop: 30,
-    paddingVertical: 30
+    paddingVertical: 30,
     
   },
   button: {
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     width: '70%',
-    borderRadius: 40,
+    borderRadius: 10,
     alignItems: 'center',
     marginTop: '10%'
   },
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
     padding: 15,
     width: 300,
-    borderRadius: 30,
+    borderRadius: 10,
     marginTop: 30,
     fontSize: 16,
     paddingLeft: 50
@@ -157,15 +165,15 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     paddingVertical: 12,
     paddingHorizontal: 50,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 10,
     marginTop: 10,
     width: 300,
-    alignItems: 'left',
+    alignItems: 'center',
   },
   eyeButton: {
     position: 'absolute',
-    right: 25,
+    right: 15,
     top: 40,
     zIndex: 10,
     padding: 4,
