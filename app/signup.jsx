@@ -1,120 +1,165 @@
-import { StyleSheet, Text, View,  } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import React from 'react'
-import { TextInput } from 'react-native'
-import { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-
+import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Link, useNavigation } from 'expo-router';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [agree, setAgree] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-          
-      <Text style={{textAlign:'center', fontSize:24}} >Sign Up</Text>
+      <View style={styles.headerRow}>
+        <Link href={'/start'}>
+          <Ionicons name={'arrow-back-sharp'} size={24} color={'#000'} />
+        </Link>
+        <Text style={styles.headerTitle}>Sign Up</Text>
+        <View style={{ width: 24 }} />
+      </View>
 
-      <View style={styles.formContainer}>
-        <View style={styles.inputContainer}>
-          <Ionicons name="person" size={20} color="#666" style={{marginRight:5}} />
-          <TextInput style={styles.textInput} 
-          placeholder='Enter your name' 
-          placeholderTextColor='#666'
-          value={name}
-          onChangeText={setName}
-          />
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.formContainer}>
+          <View style={styles.inputContainer}>
+            <Ionicons name="person" size={24} color="#ddd" style={{ marginRight: 5 }} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter your name"
+              placeholderTextColor="#999"
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Ionicons name="mail-outline" size={24} color="#ddd" style={{ marginRight: 5 }} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter your email"
+              placeholderTextColor="#999"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Ionicons name="lock-closed-outline" size={24} color="#ddd" style={{ marginRight: 5 }} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter your password"
+              placeholderTextColor="#999"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <Ionicons
+                name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                size={24}
+                color="#ddd"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}
+            onPress={() => setChecked(!checked)}
+          >
+            <Ionicons
+              name={checked ? 'checkbox' : 'square-outline'}
+              size={24}
+              color={checked ? '#407CE2' : '#aaa'}
+            />
+            <Text style={{ marginLeft: 8, flexShrink: 1 }}>
+              I agree to the healthcare
+              <Text style={{ color: '#407CE2', fontWeight: 'bold' }}> Terms of Service </Text>
+              and
+              <Text style={{ color: '#407CE2', fontWeight: 'bold' }}> Privacy Policy</Text>
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.inputContainer}>
-          <Ionicons name="mail-outline" size={20} color="#666" style={{marginRight:5}} />
-          <TextInput style={styles.textInput} 
-          placeholder='Enter your email' 
-          placeholderTextColor='#666'
-          value={email}
-          onChangeText={setEmail}
-          />
-        </View>
+      </ScrollView>
 
-        <View style={styles.inputContainer}>
-          <Ionicons name="lock-closed-outline" size={20} color="#666" style={{marginRight:5}} />
-          <TextInput style={styles.textInput} 
-          placeholder='Enter your password' 
-          placeholderTextColor='#666'
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
-          />
-
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-          <Ionicons
-            name={showPassword ? 'eye-outline' : 'eye-off-outline'}
-            size={20}
-            color="#999"
-          />
-        </TouchableOpacity>
-
-        
-        </View>
-        <View>
-          <TouchableOpacity style={styles.signupButton}>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.signupButton}>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
-        </View>
 
-        
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Text>Don’t have an account?  </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('signin')}>
+            <Text style={{ color: '#407CE2', fontWeight: 'bold' }}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'#fff',
-    justifyContent:'center',
-    alignItems:'center',  
-   
+  container: {
+    flex: 1,
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingVertical: 20,
   },
-  formContainer:{
-    margin:20,
-    width:'80%',
+  scrollContent: {
+    alignItems: 'center',
+    paddingBottom: 20,
   },
-  inputContainer:{
-    borderWidth:1,
-    marginBottom:15,
-    borderColor:'#ccc',
-    borderRadius:1,
-    paddingHorizontal:15,
-    paddingVertical:10,
-    flexDirection:'row',
-    alignItems:'center',
-    padding:2,
-    backgroundColor:'#f9f9f9',
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '80%',
+    marginBottom: 20,
   },
-  textInput:{
-    flex:1,
-    paddingHorizontal:10,
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+marginBottom:10  },
+  formContainer: {
+    width: '85%',
+  },
+  inputContainer: {
+    borderWidth: 1,
+    marginBottom: 20,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: '#f9f9f9',
+  },
+  textInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  footer: {
+    width: '85%',
+    alignItems: 'center',
+    marginBottom: 25,
   },
   signupButton: {
-    borderWidth: 1,
-    borderColor:'#407CE2',
-    paddingVertical: 12,
     backgroundColor: '#407CE2',
-    paddingHorizontal: 50,
-    borderRadius: 50,
-    marginBottom: 20,
-    marginTop: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    width: '85%',
+    borderRadius: 40,
     alignItems: 'center',
+    marginBottom: 10,
   },
   signupText: {
-    color: '#ffffffff',
+    color: '#fff',
     fontSize: 18,
-    fontWeight:'bold',
+    fontWeight: 'bold',
   },
-  
-})
+});

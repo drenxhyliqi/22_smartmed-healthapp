@@ -22,7 +22,7 @@ export default function Start() {
         </TouchableOpacity>
 
         <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('homepage')}>
+        <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('signup')}>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
         
