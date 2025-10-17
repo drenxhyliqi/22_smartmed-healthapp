@@ -11,6 +11,13 @@ const Signin = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <Link href={'/start'} style={styles.goBack}>
+                  <Ionicons
+                    name={'arrow-back-sharp'}
+                    size={24}
+                    color={'#407CE2'}
+                    />
+      </Link>
       <Text style={styles.text}>Sign In</Text>
       <View>
         <View>
@@ -178,6 +185,14 @@ const styles = StyleSheet.create({
     zIndex: 10,
     padding: 4,
   },
+  goBack: {
+    position: 'absolute',
+    top: 40,
+    left: 50,
+    backgroundColor: 'rgba(10, 25, 25, 0.06)',
+    padding: 8,
+    borderRadius: 10,
+  }
 });
 
 export default Signin;

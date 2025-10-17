@@ -9,15 +9,13 @@ const SecondOnBoard = () => {
   return (
       <View style={styles.container}>
           <View style={styles.header}>
-              <Link href={'/onboard'}>
+              <Link href={'/onboard'} style={styles.goBack}>
                   <Ionicons
                     name={'arrow-back-sharp'}
                     size={24}
                     color={'#407CE2'}
                     />
               </Link>
-            
-            {/* Butoni */}
             <Link href={'/start'} style={styles.skipText}>
               <Text>Skip</Text>
             </Link>
@@ -42,14 +40,12 @@ const SecondOnBoard = () => {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             paddingHorizontal: 30, 
-              marginTop: 55,
+            marginTop: 55,
             marginBottom: 30
           }}>
             <Image
             source={require('../assets/images/secondFrame.png')}
-            style={{ width: 30, height: 30, resizeMode: 'contain', marginLeft: 20 }}
-            />
-            {/* Butoni */}
+            style={{ width: 30, height: 30, resizeMode: 'contain', marginLeft: 20 }}/>
           <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('start')}>
             <Text style={{ fontSize: 24, color: '#f9f9f9' }}>⮕</Text>
           </TouchableOpacity>
@@ -82,21 +78,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-      bottom: 0,
+    bottom: 0,
     right: 30
     },
-    content: {
-        fontSize: 28,
-        fontWeight: '700',
+  content: {
+    fontSize: 28,
+    fontWeight: '700',
     },
-        header: {
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 30,
-            paddingBottom: 60,
-    }
+  header: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 30,
+    paddingBottom: 43,
+  },
+  goBack: {
+    backgroundColor: 'rgba(10, 25, 25, 0.06)',
+    padding: 8,
+    borderRadius: 10,
+  }
 });
 
 export default SecondOnBoard;

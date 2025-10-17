@@ -13,10 +13,10 @@ const Signup = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerRow}>
-        <Link href={'/start'}>
-          <Ionicons name={'arrow-back-sharp'} size={24} color={'#000'} />
+        <Link href={'/start'} style={styles.goBack}>
+          <Ionicons name={'arrow-back-sharp'} size={24} color={'#407CE2'} />
         </Link>
+      <View style={styles.headerRow}>
         <Text style={styles.headerTitle}>Sign Up</Text>
         <View style={{ width: 24 }} />
       </View>
@@ -107,36 +107,35 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingVertical: 20,
+    paddingVertical: 60,
   },
   scrollContent: {
     alignItems: 'center',
     paddingBottom: 20,
   },
   headerRow: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '80%',
+    width: '20%',
     marginBottom: 20,
+    marginTop: '15'
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '700',
     textAlign: 'center',
-marginBottom:10  },
-  formContainer: {
+    marginBottom:10  },
+    formContainer: {
     width: '85%',
   },
   inputContainer: {
     borderWidth: 1,
     marginBottom: 20,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingVertical: 15,
     backgroundColor: '#f9f9f9',
   },
   textInput: {
@@ -162,4 +161,12 @@ marginBottom:10  },
     fontSize: 18,
     fontWeight: 'bold',
   },
+  goBack: {
+    position: 'absolute',
+    top: 40,
+    left: 50,
+    backgroundColor: 'rgba(10, 25, 25, 0.06)',
+    padding: 8,
+    borderRadius: 10,
+  }
 });
