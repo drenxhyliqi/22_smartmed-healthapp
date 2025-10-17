@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   forgotPass: {
     textAlign: 'right',
     marginTop: 15,
-    marginRight: 15,
+    marginRight: 4,
     color: '#407CE2',
     fontWeight: '600'
   },
