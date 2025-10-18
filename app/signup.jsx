@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -164,8 +165,8 @@ const styles = StyleSheet.create({
   },
   goBack: {
     position: 'absolute',
-    top: 40,
-    left: 50,
+    top: 25,
+    left: 35,
     backgroundColor: 'rgba(10, 25, 25, 0.06)',
     padding: 8,
     borderRadius: 10,

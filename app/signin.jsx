@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
   },
   goBack: {
     position: 'absolute',
-    top: 40,
-    left: 50,
+    top: 25,
+    left: 35,
     backgroundColor: 'rgba(10, 25, 25, 0.06)',
     padding: 8,
     borderRadius: 10,
