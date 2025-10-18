@@ -1,39 +1,39 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar} from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
   return (
-    <View style={styles.screen}>
-        <View style={styles.headerContent}>
-          <Image
-            source={require('../assets/images/profile_pic.png')}
-            style={styles.profileImage}
-          />
-          <Text style={styles.name}>Ruchita</Text>
+    <SafeAreaView style={styles.screen} edges={[]}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.headerContent}>
+        <Image
+          source={require('../assets/images/profile_pic.png')}
+          style={styles.profileImage}
+        />
+        <Text style={styles.name}>Ruchita</Text>
 
-          <View style={styles.statsContainer}>
-            <StatCard
-              icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />}
-              value="215 bpm"
-              label="Heart Rate"
-            />
-            <StatCard
-              icon={<Ionicons name="flame" size={22} color="#4F8EF7" />}
-              value="756 cal"
-              label="Calories"
-            />
-            <StatCard
-              icon={<FontAwesome name="balance-scale" size={22} color="#4F8EF7" />}
-              value="103 lbs"
-              label="Weight"
-            />
-          </View>
+        <View style={styles.statsContainer}>
+          <StatCard
+            icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />}
+            value="215 bpm"
+            label="Heart Rate"
+          />
+          <StatCard
+            icon={<Ionicons name="flame" size={22} color="#4F8EF7" />}
+            value="756 cal"
+            label="Calories"
+          />
+          <StatCard
+            icon={<FontAwesome name="balance-scale" size={22} color="#4F8EF7" />}
+            value="103 lbs"
+            label="Weight"
+          />
         </View>
+      </View>
 
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.menuContainer}>
@@ -44,7 +44,7 @@ export default function ProfileScreen() {
           <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -76,7 +76,7 @@ const MenuItem = ({ icon, label, target }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#407CE2'
+    backgroundColor: '#407CE2',
   },
   headerGradient: {
     borderBottomLeftRadius: 35,

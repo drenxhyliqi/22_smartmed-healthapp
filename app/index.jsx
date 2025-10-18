@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, Animated, Dimensions, ImageBackground } from "r
 import { useRouter } from "expo-router";
 import { Image } from 'expo-image';
 import Background from "../assets/images/background.png";
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,7 +30,7 @@ export default function Index() {
 
   if (loading) {
   return (
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={[]}>
         <Image
           source={require('../assets/images/background.png')}
           style={styles.backgroundImage}
@@ -46,7 +48,7 @@ export default function Index() {
           <Text style={styles.title}>Healthcare</Text>
           <Text style={styles.subtitle}>SmartMed App</Text>
         </Animated.View>
-      </View>
+      </SafeAreaView>
     );
   }
 

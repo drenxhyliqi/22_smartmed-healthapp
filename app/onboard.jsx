@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Onboarding = () => {
     const navigation = useNavigation();
   return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container} edges={[]}>
           <View style={styles.header}>
               <Link href={'/onboard'} disabled>
                   <Ionicons
@@ -54,8 +55,7 @@ const Onboarding = () => {
             <Text style={{ fontSize: 24, color: '#f9f9f9' }}>⮕</Text>
           </TouchableOpacity>
           </View>
-          
-    </View>
+    </SafeAreaView>
   );
 };
 

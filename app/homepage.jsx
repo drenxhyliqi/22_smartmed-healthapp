@@ -1,10 +1,12 @@
-import { FlatList, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View, ScrollView, Touchable, StatusBar } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 import { Image } from 'expo-image' 
 import { Ionicons } from '@expo/vector-icons'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Homepage = () => {
+
     const articles = [
         { id: '1', title: 'The 25 Healthiest Fruits You Can Eat, According to a Nutritionist', image: require('../assets/images/l2.png'), date: 'Jun 11, 20223' },
         { id: '2', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 10, 20223' },
@@ -12,7 +14,8 @@ const Homepage = () => {
         { id: '4', title: 'The Impact of COVID-19 on Healthcare Systems', image: require('../assets/images/l1.png'), date: 'Jun 8, 20223' },
     ]
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container} edges={[]}>           
+            <StatusBar barStyle="light-content" backgroundColor="#407CE2" />
             <Link href={'/start'} style={styles.goBack}>
                   <Ionicons
                     name={'arrow-back-sharp'}
@@ -81,7 +84,7 @@ const Homepage = () => {
                     contentContainerStyle={{ paddingBottom: 50 }}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -2,15 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
-import { useNavigation } from 'expo-router';
-import { Link } from 'expo-router';
+import { useNavigation, Link } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const Signin = () => {
   const [password, setPassword] = useState('');
   const [secure, setSecure] = useState(true);
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={[]}>
       <Link href={'/start'} style={styles.goBack}>
                   <Ionicons
                     name={'arrow-back-sharp'}
@@ -99,7 +100,7 @@ const Signin = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

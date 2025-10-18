@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Link, useNavigation } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -12,7 +13,7 @@ const Signup = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={[]}>
         <Link href={'/start'} style={styles.goBack}>
           <Ionicons name={'arrow-back-sharp'} size={24} color={'#407CE2'} />
         </Link>
@@ -95,7 +96,7 @@ const Signup = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Start() {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={[]}>
       <Image
             source={require('../assets/images/healthcare2.png')}
             style={styles.image}
@@ -27,7 +28,7 @@ export default function Start() {
         </TouchableOpacity>
         
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
