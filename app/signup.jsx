@@ -3,6 +3,10 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Link, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase"; 
+
 
 
 const Signup = () => {
@@ -15,7 +19,7 @@ const Signup = () => {
 
   const navigation = useNavigation();
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!name.trim()) {
       setErrorMessage("Name field is required.");
       return;
@@ -37,7 +41,31 @@ const Signup = () => {
     }
 
     setErrorMessage(""); 
-    navigation.navigate("homepage");
+    try {
+    // Krijohet user-in në Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email.trim(),
+      password
+    );
+
+    const user = userCredential.user;
+
+    // Ruajtja në Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      name: name.trim(),
+      email: email.trim(),
+      password: password,
+      createdAt: new Date(),
+    });
+
+    console.log("User created:", user.uid);
+
+    navigation.navigate("signin");
+
+  } catch (error) {
+    setErrorMessage(error.message);
+  }
   };
   return (
     <SafeAreaView style={styles.container} edges={[]}>
