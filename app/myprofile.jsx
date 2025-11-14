@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar} from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { useNavigation } from 'expo-router';
+import { Link, router, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
@@ -38,11 +38,23 @@ export default function ProfileScreen() {
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.menuContainer}>
           <MenuItem icon="heart-outline" label="My Saved" target="signin" />
-          <MenuItem icon="people-outline" label="Doctors" target="/(management)/manageDoctors" />
           <MenuItem icon="calendar-outline" label="Appointment" target="signin"/>
           <MenuItem icon="card-outline" label="Payment Method"target="signin" />
           <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
           <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
+          
+          <View style={{ marginTop: 30, alignItems: 'center' }}>
+            <TouchableOpacity 
+              style={styles.managementCard} 
+              onPress={() => router.push("/(management)/manageDoctors")}
+            >
+              <Ionicons name="medkit-outline" size={28} color="#fff" style={styles.cardIcon} />
+              <View style={styles.cardTextWrapper}>
+                <Text style={styles.managementTitle}>Management</Text>
+                <Text style={styles.managementSubtitle}>Manage Doctors</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -168,4 +180,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 15,
   },
+  managementCard: {
+    width: '90%',
+    backgroundColor: '#407CE2',
+    borderRadius: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  cardIcon: {
+    marginRight: 15,
+  },
+  cardTextWrapper: {
+    flex: 1,
+  },
+  managementTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'left',
+  },
+  managementSubtitle: {
+    fontSize: 16,
+    color: '#f0f0f0',
+    textAlign: 'left',
+    marginTop: 3,
+  },
+
 });
