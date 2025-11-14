@@ -38,6 +38,7 @@ export default function ProfileScreen() {
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.menuContainer}>
           <MenuItem icon="heart-outline" label="My Saved" target="signin" />
+          <MenuItem icon="people-outline" label="Doctors" target="/(management)/manageDoctors" />
           <MenuItem icon="calendar-outline" label="Appointment" target="signin"/>
           <MenuItem icon="card-outline" label="Payment Method"target="signin" />
           <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
