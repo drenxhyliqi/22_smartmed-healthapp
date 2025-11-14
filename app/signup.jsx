@@ -11,8 +11,34 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const navigation = useNavigation();
 
+  const handleSignup = () => {
+    if (!name.trim()) {
+      setErrorMessage("Name field is required.");
+      return;
+    }
+
+    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
+      setErrorMessage("Please enter a valid email.");
+      return;
+    }
+
+    if (!password.trim() || password.length < 6) {
+      setErrorMessage("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (!checked) {
+      setErrorMessage("You must agree to Terms & Privacy.");
+      return;
+    }
+
+    setErrorMessage(""); 
+    navigation.navigate("homepage");
+  };
   return (
     <SafeAreaView style={styles.container} edges={[]}>
         <Link href={'/start'} style={styles.goBack}>
@@ -82,11 +108,18 @@ const Signup = () => {
               <Text style={{ color: '#407CE2', fontWeight: 'bold' }}> Privacy Policy</Text>
             </Text>
           </TouchableOpacity>
+            {errorMessage ? (
+              <Text style={{ color: 'red', marginBottom: 10, textAlign: 'center' }}>
+            {errorMessage}
+              </Text>
+                ) : null}
+
         </View>
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('homepage')}>
+        <TouchableOpacity style={styles.signupButton} onPress={handleSignup}
+>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
 
