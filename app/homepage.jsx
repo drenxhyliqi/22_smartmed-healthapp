@@ -47,15 +47,15 @@ const Homepage = () => {
                 <View style={styles.icons}>
                     <View style={{ alignItems: 'center' }}>
                         <Ionicons name="people" size={25} color="#ffffffff" style={styles.topDoctors} />
-                        <Text style={{ marginTop: 10 }}>Top Doctors</Text>
+                        <Link href="/topdoctors"><Text style={{ marginTop: 10 }}>Top Doctors</Text></Link>
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <Ionicons name="medkit" size={25} color="#ffffffff" style={styles.pharmacy}/>
-                        <Text style={{ marginTop: 10 }}>Pharmacy</Text>
+                        <Link href="/pharmacy"><Text style={{ marginTop: 10 }}>Pharmacy</Text></Link>
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <Ionicons name="bus" size={25} color="#ffffffff" style={styles.ambulance}/>
-                        <Text style={{ marginTop: 10 }}>Ambulance</Text>
+                        <Link href="/ambulance"><Text style={{ marginTop: 10 }}>Ambulance</Text></Link>
                     </View>
                 </View>
 
