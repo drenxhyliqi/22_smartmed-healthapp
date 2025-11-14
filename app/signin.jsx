@@ -6,7 +6,8 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { UserContext } from '../contexts/UserContext';
+import { UserContext } from '../context/userContext';
+
 
 const Signin = () => {
   const [email, setEmail] = useState('');

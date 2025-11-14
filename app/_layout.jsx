@@ -1,30 +1,26 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Stack, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { StatusBar } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { UserProvider } from './contexts/UserContext';
+import { UserProvider } from '../context/userContext'; // KJO ESHTE E RREGULLT
 
 const RootLayout = () => {
   return (
     <UserProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#407CE2' }} edges={['top']}>
-        <StatusBar  barStyle="light-content" />
-
+        <StatusBar barStyle="light-content" />
         <Tabs
           screenOptions={{
             headerShown: false,
             tabBarStyle: { height: 70 },
-            headerBackground: '#ffffffff',
-            animation:"shift",
-            gestureEnabled: true, // nuk funksionin per tabs vetem per stack
           }}
         >
           <Tabs.Screen
             name="homepage"
             options={{
               title: 'Homepage',
-              tabBarIcon: ({ focused, color, size }) => (
+              tabBarIcon: ({ focused }) => (
                 <Ionicons
                   name={focused ? 'home' : 'home-outline'}
                   size={30}
@@ -37,7 +33,7 @@ const RootLayout = () => {
             name="myprofile"
             options={{
               title: 'My Profile',
-              tabBarIcon: ({ focused, color, size }) => (
+              tabBarIcon: ({ focused }) => (
                 <Ionicons
                   name={focused ? 'people-circle' : 'people-circle-outline'}
                   size={30}

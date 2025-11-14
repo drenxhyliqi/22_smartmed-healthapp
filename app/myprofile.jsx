@@ -8,7 +8,7 @@ import { UserContext } from '../context/userContext';
 
 export default function MyProfile() {
   const navigation = useNavigation();
-  const { userData } = useContext(UserContext); // Merr userData nga Context
+  const { userData } = useContext(UserContext); 
 
   if (!userData) {
     return (
@@ -40,7 +40,7 @@ export default function MyProfile() {
 // Header me stats
 const Header = ({ userData }) => (
   <View style={styles.headerContent}>
-    <Image source={require('../assets/images/profile_pic.png')} style={styles.profileImage} />
+    <Image source={require('../assets/images/person-icon.png')} style={styles.profileImage} />
     <Text style={styles.name}>{userData.username}</Text>
     <View style={styles.statsContainer}>
       <StatCard icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />} value={`${userData.heart_rate} bpm`} label="Heart Rate" />
@@ -50,7 +50,6 @@ const Header = ({ userData }) => (
   </View>
 );
 
-// Stat Card
 const StatCard = ({ icon, value, label }) => (
   <View style={styles.statCard}>
     {icon}
@@ -59,7 +58,6 @@ const StatCard = ({ icon, value, label }) => (
   </View>
 );
 
-// Menu Item
 const MenuItem = ({ icon, label, target }) => {
   const navigation = useNavigation();
   return (
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
   center: { justifyContent: 'center', alignItems: 'center' },
   noDataText: { color: '#fff', fontSize: 18 },
   headerContent: { alignItems: 'center', marginTop: 50 },
-  profileImage: { width: 120, height: 120, borderRadius: 60, borderWidth: 3, borderColor: '#fff', marginBottom: 10, contentFit: 'cover' },
+  profileImage: { width: 150, height: 150, borderRadius: 60, borderWidth: 0, marginBottom: 10, contentFit: 'cover' },
   name: { fontSize: 22, fontWeight: 'bold', color: '#fff', marginBottom: 25 },
   statsContainer: { flexDirection: 'row', justifyContent: 'space-around', width: '90%' },
   statCard: { alignItems: 'center', backgroundColor: '#fff', paddingVertical: 15, paddingHorizontal: 15, borderRadius: 15, width: 100 },
