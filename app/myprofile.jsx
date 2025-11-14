@@ -1,49 +1,94 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ route }) {
+  const navigation = useNavigation();
+  const { email } = route.params; 
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('email', '==', email));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          setUserData(querySnapshot.docs[0].data());
+        } else {
+          console.log('Nuk u gjet përdoruesi me këtë email');
+        }
+      } catch (error) {
+        console.error('Gabim gjatë marrjes së të dhënave:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [email]);
+
+  if (loading) {
+    return (
+      <View style={[styles.screen, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color="#fff" />
+      </View>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <View style={[styles.screen, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ color: '#fff', fontSize: 18 }}>Nuk ka të dhëna për përdoruesin</Text>
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.screen} edges={[]}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.headerContent}>
-        <Image
-          source={require('../assets/images/profile_pic.png')}
-          style={styles.profileImage}
-        />
-        <Text style={styles.name}>Ruchita</Text>
-
-        <View style={styles.statsContainer}>
-          <StatCard
-            icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />}
-            value="215 bpm"
-            label="Heart Rate"
-          />
-          <StatCard
-            icon={<Ionicons name="flame" size={22} color="#4F8EF7" />}
-            value="756 cal"
-            label="Calories"
-          />
-          <StatCard
-            icon={<FontAwesome name="balance-scale" size={22} color="#4F8EF7" />}
-            value="103 lbs"
-            label="Weight"
-          />
+  
+      {loading ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="#fff" />
         </View>
-      </View>
-
-      <View style={styles.contentWrapper}>
-        <ScrollView contentContainerStyle={styles.menuContainer}>
-          <MenuItem icon="heart-outline" label="My Saved" target="signin" />
-          <MenuItem icon="calendar-outline" label="Appointment" target="signin"/>
-          <MenuItem icon="card-outline" label="Payment Method"target="signin" />
-          <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
-          <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
-        </ScrollView>
-      </View>
+      ) : (
+        userData && (
+          <>
+            <View style={styles.headerContent}>
+              <Image
+                source={require('../assets/images/profile_pic.png')}
+                style={styles.profileImage}
+              />
+              {/* Shfaq username */}
+              <Text style={styles.name}>{userData.username}</Text>
+  
+              <View style={styles.statsContainer}>
+                <StatCard
+                  icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />}
+                  value={`${userData.heart_rate} bpm`}   // heart_rate nga DB
+                  label="Heart Rate"
+                />
+                <StatCard
+                  icon={<Ionicons name="flame" size={22} color="#4F8EF7" />}
+                  value={`${userData.calories} cal`}      // calories nga DB
+                  label="Calories"
+                />
+                <StatCard
+                  icon={<FontAwesome name="balance-scale" size={22} color="#4F8EF7" />}
+                  value={`${userData.weight} lbs`}       // weight nga DB
+                  label="Weight"
+                />
+              </View>
+            </View>
+          </>
+        )
+      )}
     </SafeAreaView>
   );
 }
@@ -77,12 +122,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#407CE2',
-  },
-  headerGradient: {
-    borderBottomLeftRadius: 35,
-    borderBottomRightRadius: 35,
-    paddingVertical: 40,
-    alignItems: 'center',
   },
   headerContent: {
     alignItems: 'center',
