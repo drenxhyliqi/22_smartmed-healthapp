@@ -41,10 +41,23 @@ export default function MyProfile() {
               style={styles.managementCard} 
               onPress={() => router.push("/(management)/manageDoctors")}
             >
-              <Ionicons name="medkit-outline" size={28} color="#fff" style={styles.cardIcon} />
+              <Ionicons name="people-outline" size={28} color="#fff" style={styles.cardIcon} />
               <View style={styles.cardTextWrapper}>
                 <Text style={styles.managementTitle}>Management</Text>
                 <Text style={styles.managementSubtitle}>Manage Doctors</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ marginTop: 30, alignItems: 'center' }}>
+            <TouchableOpacity 
+              style={styles.managementCard} 
+              onPress={() => router.push("/(management)/manageDrugs")}
+            >
+              <Ionicons name="medkit-outline" size={28} color="#fff" style={styles.cardIcon} />
+              <View style={styles.cardTextWrapper}>
+                <Text style={styles.managementTitle}>Management</Text>
+                <Text style={styles.managementSubtitle}>Manage Drugs</Text>
               </View>
             </TouchableOpacity>
           </View>
