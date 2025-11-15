@@ -115,7 +115,7 @@ const Signup = () => {
               <Ionicons
                 name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                 size={24}
-                color="#ddd"
+                color="#777"
               />
             </TouchableOpacity>
           </View>
@@ -152,9 +152,9 @@ const Signup = () => {
         </TouchableOpacity>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Text>Don’t have an account?  </Text>
+          <Text style={{fontSize: 17}}>Already have an account?  </Text>
           <TouchableOpacity onPress={() => navigation.navigate('signin')}>
-            <Text style={{ color: '#407CE2', fontWeight: 'bold' }}>Sign In</Text>
+            <Text style={{ color: '#407CE2', fontWeight: 'bold', fontSize: 17}}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -178,12 +178,12 @@ const styles = StyleSheet.create({
   },
   headerRow: {
     alignItems: 'center',
-    width: '20%',
+    width: '25%',
     marginBottom: 20,
     marginTop: '15'
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '700',
     textAlign: 'center',
     marginBottom:10  },
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     width: '85%',
-    borderRadius: 40,
+    borderRadius: 10,
     alignItems: 'center',
     marginBottom: 10,
   },
