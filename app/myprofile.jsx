@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from '../context/userContext';
 
 export default function MyProfile() {
-  const navigation = useNavigation();
   const { userData } = useContext(UserContext); 
 
   if (!userData) {
@@ -25,6 +24,13 @@ export default function MyProfile() {
 
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.menuContainer}>
+        {userData.role === "admin" && (
+          <MenuItem 
+            icon="settings-outline" 
+            label="Management Panel" 
+            target="(management)/menuList" 
+          />
+        )}
           <MenuItem icon="heart-outline" label="My Saved" target="signin" />
           <MenuItem icon="people-outline" label="Doctors" target="/(management)/manageDoctors" />
           <MenuItem icon="calendar-outline" label="Appointment" target="signin" />
@@ -36,44 +42,7 @@ export default function MyProfile() {
           <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
           <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
           
-          <View style={{ marginTop: 30, alignItems: 'center' }}>
-            <TouchableOpacity 
-              style={styles.managementCard} 
-              onPress={() => router.push("/(management)/manageDoctors")}
-            >
-              <Ionicons name="people-outline" size={28} color="#fff" style={styles.cardIcon} />
-              <View style={styles.cardTextWrapper}>
-                <Text style={styles.managementTitle}>Management</Text>
-                <Text style={styles.managementSubtitle}>Manage Doctors</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginTop: 30, alignItems: 'center' }}>
-            <TouchableOpacity 
-              style={styles.managementCard} 
-              onPress={() => router.push("/(management)/manageDrugs")}
-            >
-              <Ionicons name="medkit-outline" size={28} color="#fff" style={styles.cardIcon} />
-              <View style={styles.cardTextWrapper}>
-                <Text style={styles.managementTitle}>Management</Text>
-                <Text style={styles.managementSubtitle}>Manage Drugs</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          
-          <View style={{ marginTop: 30, alignItems: 'center' }}>
-          <TouchableOpacity 
-              style={styles.managementCard} 
-              onPress={() => router.push("/(management)/manageHospitals")}
-            >
-              <Ionicons name="people-outline" size={28} color="#fff" style={styles.cardIcon} />
-              <View style={styles.cardTextWrapper}>
-                <Text style={styles.managementTitle}>Management</Text>
-                <Text style={styles.managementSubtitle}>Manage Hospitals</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+         
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -134,14 +103,14 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderWidth: 3,
     borderColor: '#fff',
-    marginBottom: 10,
+    marginBottom: 20,
     contentFit: 'cover',
   },
   name: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 25,
+    marginBottom: 5,
   },
   statsContainer: {
     flexDirection: 'row',
