@@ -101,7 +101,7 @@ const DoctorCRUDScreen = () => {
                 {/* Back Button */}
                 <TouchableOpacity
                     style={styles.goBack}
-                    onPress={() => router.push('/myprofile')}
+                    onPress={() => router.push('/(management)/menuList')}
                 >
                     <Ionicons name={'arrow-back-sharp'} size={20} color={'#407CE2'} />
                     <Text style={styles.goBackText}>Back</Text>

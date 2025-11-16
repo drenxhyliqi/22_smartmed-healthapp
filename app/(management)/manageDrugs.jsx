@@ -113,7 +113,8 @@ const PharmacyCRUDScreen = () => {
         <View style={styles.container}>
             {/* Top Buttons */}
             <View style={styles.topButtons}>
-                <TouchableOpacity style={styles.goBack} onPress={() => router.push('/myprofile')}>
+                <TouchableOpacity style={styles.goBack} onPress={() => router.push('/(management)/menuList')}>                   
+                
                     <Ionicons name={'arrow-back-sharp'} size={20} color={'#407CE2'} />
                     <Text style={styles.goBackText}>Back</Text>
                 </TouchableOpacity>

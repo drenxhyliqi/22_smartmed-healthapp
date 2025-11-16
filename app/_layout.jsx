@@ -54,6 +54,8 @@ const RootLayout = () => {
           <Tabs.Screen name="ambulance" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
           <Tabs.Screen name="(management)/manageDoctors" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
           <Tabs.Screen name="(management)/manageDrugs" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+          <Tabs.Screen name="(management)/manageHospitals" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
+          <Tabs.Screen name="(management)/menuList" options={{ tabBarItemStyle: { display: 'none' }, tabBarButton: () => null, tabBarStyle: { display: 'none' } }} />
         </Tabs>
       </SafeAreaView>
     </UserProvider>
