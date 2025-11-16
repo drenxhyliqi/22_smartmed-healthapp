@@ -1,52 +1,77 @@
-import { FlatList, StyleSheet, Text, View, StatusBar } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
-import { Image } from 'expo-image'
-import { Ionicons } from '@expo/vector-icons'
+import { FlatList, StyleSheet, Text, View, StatusBar, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'expo-router';
+import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from '../firebase';
 
-const Homepage = () => {
+const PharmacyHomepage = () => {
 
-    const pharmacies = [
-        { id: '1', title: 'Paracetamol', price: '$25', qty: '10 tablets', image: require('../assets/images/l1.png') },
-        { id: '2', title: 'Vitamin C', price: '$40', qty: '20 tablets', image: require('../assets/images/l2.png') },
-        { id: '3', title: 'Cough Syrup', price: '$120', qty: '100ml', image: require('../assets/images/l1.png') },
-        { id: '4', title: 'Pain Relief Gel', price: '$85', qty: '50g', image: require('../assets/images/l2.png') },
-        { id: '5', title: 'Bandage Roll', price: '$30', qty: '1 piece', image: require('../assets/images/l2.png') },
-        { id: '6', title: 'Antibiotic Cream', price: '$90', qty: '20g', image: require('../assets/images/l1.png') },
-    ]
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const ref = collection(db, "pharmacy");
+
+        // REAL-TIME FIRESTORE LISTENER
+        const unsubscribe = onSnapshot(ref, (snapshot) => {
+            const data = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setItems(data);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    if (loading) {
+        return (
+            <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+                <ActivityIndicator size="large" color="#fff" />
+                <Text style={{ color: "#fff", marginTop: 10 }}>Loading pharmacy items...</Text>
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container} edges={[]}>
             <StatusBar barStyle="light-content" backgroundColor="#407CE2" />
+
             <View style={styles.content}>
 
+                {/* Header */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10 }}>
                     <Link href={'/homepage'} style={styles.goBack}>
-                        <Ionicons
-                            name={'arrow-back-sharp'}
-                            size={24}
-                            color={'#000000ff'} />
+                        <Ionicons name={'arrow-back-sharp'} size={24} color={'#000'} />
                     </Link>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Pharmacy</Text>
                 </View>
 
                 {/* Grid List */}
                 <FlatList
-                    data={pharmacies}
+                    data={items}
                     keyExtractor={(item) => item.id}
                     numColumns={2}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
+                    contentContainerStyle={{ paddingBottom: 50, marginTop: 10 }}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <View style={styles.card}>
-                            <Image source={item.image} style={styles.cardImage} />
+                            <Image
+                                source={{ uri: item.image || "https://via.placeholder.com/100" }}
+                                style={styles.cardImage}
+                            />
 
                             <Text style={styles.cardTitle} numberOfLines={1}>
                                 {item.title}
                             </Text>
 
                             <Text style={styles.cardPrice}>
-                                Price: {item.price}
+                                Price: ${item.price}
                             </Text>
 
                             <Text style={styles.cardQty}>
@@ -54,16 +79,14 @@ const Homepage = () => {
                             </Text>
                         </View>
                     )}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 50, marginTop: 10 }}
                 />
 
             </View>
         </SafeAreaView>
-    )
+    );
 }
 
-export default Homepage
+export default PharmacyHomepage;
 
 const styles = StyleSheet.create({
     container: {
@@ -95,25 +118,22 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 10,
         marginBottom: 10,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
     },
     cardTitle: {
         fontSize: 16,
         fontWeight: '600',
-        textAlign: 'left',
         marginBottom: 4,
     },
     cardPrice: {
         fontSize: 14,
         color: '#1A73E8',
         fontWeight: '600',
-        textAlign: 'left',
         marginBottom: 2,
     },
     cardQty: {
         fontSize: 13,
         color: '#555',
-        textAlign: 'left',
     },
     goBack: {
         backgroundColor: 'rgba(0,0,0,0.14)',
@@ -121,4 +141,4 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 8,
     },
-})
+});
