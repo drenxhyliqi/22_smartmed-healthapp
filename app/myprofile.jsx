@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Alert } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from '../context/userContext';
 import { signOut } from 'firebase/auth';
@@ -43,15 +43,15 @@ export default function MyProfile() {
             <MenuItem 
               icon="settings-outline" 
               label="Management Panel" 
-              onPress={() => navigation.navigate("(management)/menuList")}
+              onPress={() => router.push("/(management)/menuList")}
             />
           )}
 
-          <MenuItem icon="heart-outline" label="My Saved" onPress={() => navigation.navigate("signin")} />
-          <MenuItem icon="people-outline" label="Doctors" onPress={() => navigation.navigate("/(management)/manageDoctors")} />
-          <MenuItem icon="calendar-outline" label="Appointment" onPress={() => navigation.navigate("signin")} />
-          <MenuItem icon="card-outline" label="Payment Method" onPress={() => navigation.navigate("signin")} />
-          <MenuItem icon="help-circle-outline" label="FAQs" onPress={() => navigation.navigate("signin")} />
+          <MenuItem icon="heart-outline" label="My Saved" onPress={() => router.push("/homepage")} />
+          <MenuItem icon="people-outline" label="Doctors" onPress={() => router.push("/(management)/manageDoctors")} />
+          <MenuItem icon="calendar-outline" label="Appointment" onPress={() => router.push("/homepage")} />
+          <MenuItem icon="card-outline" label="Payment Method" onPress={() => router.push("/homepage")} />
+          <MenuItem icon="help-circle-outline" label="FAQs" onPress={() => router.push("/homepage")} />
 
           {/* 🔴 LOGOUT ITEM ME FUNKSION */}
           <MenuItem 
@@ -187,4 +187,3 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
 });
-
