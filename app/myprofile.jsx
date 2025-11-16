@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Alert } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { Link, router, useNavigation } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from '../context/userContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function MyProfile() {
-  const { userData } = useContext(UserContext); 
+  const { userData, logout } = useContext(UserContext);   // 🔵 ADD logout
 
+  // Nëse userData nuk ekziston → user nuk është loguar
   if (!userData) {
     return (
       <View style={[styles.screen, styles.center]}>
@@ -17,6 +20,17 @@ export default function MyProfile() {
     );
   }
 
+  // 🔵 Funksioni i Logout-it
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Firebase Auth signOut
+      logout();            // Pastro context
+      Alert.alert("Dalje", "U çkyçët me sukses!");
+    } catch (error) {
+      Alert.alert("Gabim", "Nuk mund të çkyçeni tani!");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.screen} edges={[]}>
       <StatusBar barStyle="light-content" />
@@ -24,25 +38,28 @@ export default function MyProfile() {
 
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.menuContainer}>
-        {userData.role === "admin" && (
+
+          {userData.role === "admin" && (
+            <MenuItem 
+              icon="settings-outline" 
+              label="Management Panel" 
+              onPress={() => navigation.navigate("(management)/menuList")}
+            />
+          )}
+
+          <MenuItem icon="heart-outline" label="My Saved" onPress={() => navigation.navigate("signin")} />
+          <MenuItem icon="people-outline" label="Doctors" onPress={() => navigation.navigate("/(management)/manageDoctors")} />
+          <MenuItem icon="calendar-outline" label="Appointment" onPress={() => navigation.navigate("signin")} />
+          <MenuItem icon="card-outline" label="Payment Method" onPress={() => navigation.navigate("signin")} />
+          <MenuItem icon="help-circle-outline" label="FAQs" onPress={() => navigation.navigate("signin")} />
+
+          {/* 🔴 LOGOUT ITEM ME FUNKSION */}
           <MenuItem 
-            icon="settings-outline" 
-            label="Management Panel" 
-            target="(management)/menuList" 
+            icon="log-out-outline" 
+            label="Logout" 
+            onPress={handleLogout}       // 🔵 ADD
           />
-        )}
-          <MenuItem icon="heart-outline" label="My Saved" target="signin" />
-          <MenuItem icon="people-outline" label="Doctors" target="/(management)/manageDoctors" />
-          <MenuItem icon="calendar-outline" label="Appointment" target="signin" />
-          <MenuItem icon="card-outline" label="Payment Method" target="signin" />
-          <MenuItem icon="help-circle-outline" label="FAQs" target="signin" />
-          <MenuItem icon="log-out-outline" label="Logout" target="signin" />
-          <MenuItem icon="calendar-outline" label="Appointment" target="signin"/>
-          <MenuItem icon="card-outline" label="Payment Method"target="signin" />
-          <MenuItem icon="help-circle-outline" label="FAQs" target="signin"/>
-          <MenuItem icon="log-out-outline" label="Logout" target="signin"/>
-          
-         
+
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -69,10 +86,9 @@ const StatCard = ({ icon, value, label }) => (
   </View>
 );
 
-const MenuItem = ({ icon, label, target }) => {
-  const navigation = useNavigation();
+const MenuItem = ({ icon, label, onPress }) => {
   return (
-    <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate(target)}>
+    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.iconCircle}>
         <Ionicons name={icon} size={22} color="#4F8EF7" />
       </View>
@@ -87,12 +103,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#407CE2',
   },
-  headerGradient: {
-    borderBottomLeftRadius: 35,
-    borderBottomRightRadius: 35,
-    paddingVertical: 40,
-    alignItems: 'center',
-  },
   headerContent: {
     alignItems: 'center',
     marginTop:50,
@@ -103,14 +113,14 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderWidth: 3,
     borderColor: '#fff',
-    marginBottom: 20,
+    marginBottom: 10,
     contentFit: 'cover',
   },
   name: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 5,
+    marginBottom: 20,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -176,37 +186,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 15,
   },
-  managementCard: {
-    width: '90%',
-    backgroundColor: '#407CE2',
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  cardIcon: {
-    marginRight: 15,
-  },
-  cardTextWrapper: {
-    flex: 1,
-  },
-  managementTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'left',
-  },
-  managementSubtitle: {
-    fontSize: 16,
-    color: '#f0f0f0',
-    textAlign: 'left',
-    marginTop: 3,
-  },
-
 });
+
