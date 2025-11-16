@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from '../firebase';
+import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from '../context/userContext';
-
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -24,28 +23,33 @@ const Signin = () => {
     }
 
     try {
-      const q = query(
-        collection(db, "users"),
-        where("email", "==", email.trim()),
-        where("password", "==", password)
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
       );
 
-      const querySnapshot = await getDocs(q);
+      const firebaseUser = userCredential.user;
 
-      if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0];
-        const userData = userDoc.data();
+      const userRef = doc(db, "users", firebaseUser.uid);
+      const snap = await getDoc(userRef);
 
-        setUserId(userDoc.id);
-        setUserData(userData);
-
-        console.log("Të dhënat e përdoruesit:", userData);
-
-        router.replace('/homepage');
-      } else {
-        Alert.alert("Gabim", "Email ose password i gabuar!");
+      if (!snap.exists()) {
+        Alert.alert("Gabim", "Të dhënat e profilit nuk u gjetën!");
+        return;
       }
+
+      const userData = snap.data();
+
+      setUserId(firebaseUser.uid);
+      setUserData(userData);
+
+      console.log("USER LOGGED IN:", userData);
+
+      router.replace('/homepage');
+
     } catch (error) {
+      console.log(error);
       Alert.alert("Gabim gjatë hyrjes", error.message);
     }
   };
