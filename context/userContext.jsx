@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React, { createContext, useState } from 'react';
 
 export const UserContext = createContext();
@@ -9,6 +10,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setUserId(null);
     setUserData(null);
+    router.push("/signin");
   };
 
   return (
