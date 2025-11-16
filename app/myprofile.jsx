@@ -67,10 +67,9 @@ export default function MyProfile() {
   );
 }
 
-// Header me stats
 const Header = ({ userData }) => (
   <View style={styles.headerContent}>
-    <Image source={require('../assets/images/person-icon.png')} style={styles.profileImage} />
+    <Image source={require('../assets/images/person-icon.jpg')} style={styles.profileImage} />
     <Text style={styles.name}>{userData.username}</Text>
     <View style={styles.statsContainer}>
       <StatCard icon={<FontAwesome name="heart" size={22} color="#4F8EF7" />} value={`${userData.heart_rate} bpm`} label="Heart Rate" />

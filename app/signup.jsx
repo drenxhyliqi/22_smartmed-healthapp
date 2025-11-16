@@ -53,9 +53,13 @@ const Signup = () => {
 
     // Ruajtja në Firestore
     await setDoc(doc(db, "users", user.uid), {
-      name: name.trim(),
+      username: name.trim(),
       email: email.trim(),
       password: password,
+      heart_rate: 0,
+      calories: 0,
+      weight: 0,
+      role: "client",
       createdAt: new Date(),
     });
 
