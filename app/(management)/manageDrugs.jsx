@@ -3,7 +3,7 @@ import {
     StyleSheet, Text, TextInput, TouchableOpacity, View, FlatList, Modal, Alert, Image
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-    import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useRouter } from "expo-router";
 
@@ -26,35 +26,53 @@ const PharmacyCRUDScreen = () => {
         const docsArray = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setItems(docsArray);
     };
-        useEffect(() => {
-        fetchItems();
-        }, []);
+
+    useEffect(() => { fetchItems(); }, []);
+
+    // ✅ FIXED: Missing edit function
+    const editItem = (item) => {
+        setCurrentItem(item);
+        setTitle(item.title);
+        setPrice(item.price);
+        setQty(item.qty);
+        setImage(item.image);
+        setModalVisible(true);
+    };
+
     const saveItem = async () => {
         if (!title.trim() || !price.trim() || !qty.trim() || !image.trim()) {
-            Alert.alert("Validation Error", "Please fill all fields before saving.");
+            Alert.alert("Validation Error", "Please fill all fields.");
             return;
-        }try {
+        }
+
+        try {
             if (currentItem) {
+                // UPDATE
                 const itemDoc = doc(db, "pharmacy", currentItem.id);
                 await updateDoc(itemDoc, { title, price, qty, image });
-                Alert.alert("Success", "Item updated successfully!");
+                Alert.alert("Success", "Item updated!");
             } else {
+                // ADD NEW
                 await addDoc(pharmacyRef, { title, price, qty, image });
-                Alert.alert("Success", "Item added successfully!");
+                Alert.alert("Success", "Item added!");
             }
 
+            // Reset
             setTitle(""); setPrice(""); setQty(""); setImage("");
             setCurrentItem(null);
             setModalVisible(false);
+
             fetchItems();
         } catch (error) {
             Alert.alert("Error", error.message);
         }
     };
+
+    // ✅ FIXED DELETE ALERT FORMAT
     const removeItem = (item) => {
         Alert.alert(
-            `Delete Item
-    Are you sure you want to delete ${item.title}?`,
+            "Delete Item",
+            `Are you sure you want to delete ${item.title}?`,
             [
                 { text: "Cancel", style: "cancel" },
                 {
@@ -72,6 +90,7 @@ const PharmacyCRUDScreen = () => {
     const renderItem = ({ item }) => (
         <View style={styles.card}>
             {item.image ? <Image source={{ uri: item.image }} style={styles.cardImage} /> : null}
+
             <View style={styles.cardText}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardSubtitle}>Price: ${item.price}</Text>
@@ -82,6 +101,7 @@ const PharmacyCRUDScreen = () => {
                 <TouchableOpacity style={styles.editBtn} onPress={() => editItem(item)}>
                     <Ionicons name="pencil" size={18} color="#fff" />
                 </TouchableOpacity>
+
                 <TouchableOpacity style={styles.deleteBtn} onPress={() => removeItem(item)}>
                     <Ionicons name="trash" size={18} color="#fff" />
                 </TouchableOpacity>
@@ -132,7 +152,7 @@ const PharmacyCRUDScreen = () => {
                             <TextInput
                                 style={styles.inputInner}
                                 placeholder="Title"
-                                placeholderTextColor="#555"
+                                placeholderTextColor="#000"
                                 value={title}
                                 onChangeText={setTitle}
                             />
@@ -144,7 +164,7 @@ const PharmacyCRUDScreen = () => {
                             <TextInput
                                 style={styles.inputInner}
                                 placeholder="Price"
-                                placeholderTextColor="#555"
+                                placeholderTextColor="#000"
                                 keyboardType="numeric"
                                 value={price}
                                 onChangeText={setPrice}
@@ -157,7 +177,7 @@ const PharmacyCRUDScreen = () => {
                             <TextInput
                                 style={styles.inputInner}
                                 placeholder="Quantity"
-                                placeholderTextColor="#555"
+                                placeholderTextColor="#000"
                                 keyboardType="numeric"
                                 value={qty}
                                 onChangeText={setQty}
@@ -170,12 +190,11 @@ const PharmacyCRUDScreen = () => {
                             <TextInput
                                 style={styles.inputInner}
                                 placeholder="Image URL"
-                                placeholderTextColor="#555"
+                                placeholderTextColor="#000"
                                 value={image}
                                 onChangeText={setImage}
                             />
                         </View>
-
                         <View style={styles.modalButtons}>
                             <TouchableOpacity style={styles.saveBtn} onPress={saveItem}>
                                 <Text style={styles.btnText}>{currentItem ? "Update" : "Save"}</Text>
