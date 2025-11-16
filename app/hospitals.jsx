@@ -1,27 +1,46 @@
-import { FlatList, StyleSheet, Text, View, StatusBar } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
+import { FlatList, StyleSheet, Text, View, StatusBar, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const Homepage = () => {
 
-    const hospitals = [
-        { id: '1', name: 'City Care Hospital', address: 'MG Road, Bangalore' },
-        { id: '2', name: 'Apollo Medical Center', address: 'Anna Nagar, Chennai' },
-        { id: '3', name: 'Global Life Hospital', address: 'Salt Lake, Kolkata' },
-        { id: '4', name: 'Sunrise Health Clinic', address: 'Jubilee Hills, Hyderabad' },
-        { id: '5', name: 'National Hospital', address: 'Connaught Place, Delhi' },
-        { id: '6', name: 'Green Valley Hospital', address: 'Vyttila, Kochi' },
-        { id: '7', name: 'St. Joseph Medical', address: 'Panaji, Goa' },
-        { id: '8', name: 'Metro Plus Hospital', address: 'Bandra, Mumbai' },
-        { id: '9', name: 'LifeAid Hospital', address: 'Civil Lines, Jaipur' },
-        { id: '10', name: 'Prime Healthcare', address: 'Sector 17, Chandigarh' },
-    ];
+    const [hospitals, setHospitals] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const ref = collection(db, "hospitals");
+
+        const unsubscribe = onSnapshot(ref, (snapshot) => {
+            const list = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            setHospitals(list);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    if (loading) {
+        return (
+            <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+                <ActivityIndicator size="large" color="#fff" />
+                <Text style={{ marginTop: 10, color: '#fff', fontSize: 18 }}>Loading hospitals...</Text>
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container} edges={[]}>
             <StatusBar barStyle="light-content" backgroundColor="#407CE2" />
+
             <View style={styles.content}>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10 }}>
@@ -29,7 +48,7 @@ const Homepage = () => {
                         <Ionicons
                             name={'arrow-back-sharp'}
                             size={24}
-                            color={'#000000ff'} />
+                            color={'#000'} />
                     </Link>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Hospitals</Text>
                 </View>
@@ -41,19 +60,21 @@ const Homepage = () => {
                     renderItem={({ item }) => (
                         <View style={styles.listItem}>
 
-                            {/* ICON instead of image */}
-                            <View style={styles.iconWrap}>
-                                <Ionicons name="medkit" size={34} color="#407CE2" />
-                            </View>
+                            {/* Image */}
+                            <Image
+                                source={{
+                                    uri: item.image || "https://via.placeholder.com/100"
+                                }}
+                                style={styles.listImage}
+                            />
 
-                            {/* TEXT column */}
                             <View style={{ flex: 1 }}>
                                 <Text style={styles.listTitle} numberOfLines={1}>
                                     {item.name}
                                 </Text>
 
                                 <Text style={styles.listPosition} numberOfLines={2}>
-                                    {item.address}
+                                    {item.location}
                                 </Text>
                             </View>
                         </View>
@@ -64,10 +85,10 @@ const Homepage = () => {
 
             </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default Homepage
+export default Homepage;
 
 const styles = StyleSheet.create({
     container: {
@@ -85,26 +106,21 @@ const styles = StyleSheet.create({
     listItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#fff',
         padding: 12,
+        backgroundColor: '#fff',
         borderRadius: 12,
         borderWidth: 1,
         borderColor: '#eee',
         marginTop: 15,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
         elevation: 2,
     },
 
-    iconWrap: {
+    listImage: {
         width: 64,
         height: 64,
         borderRadius: 10,
         marginRight: 12,
-        backgroundColor: '#e8f0fe',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: "#f0f0f0",
     },
 
     listTitle: {
@@ -113,6 +129,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
         color: '#000',
     },
+
     listPosition: {
         fontSize: 14,
         color: '#555',
@@ -120,8 +137,8 @@ const styles = StyleSheet.create({
 
     goBack: {
         backgroundColor: 'rgba(0,0,0,0.14)',
-        marginEnd: 10,
         padding: 8,
         borderRadius: 8,
+        marginRight: 10,
     },
-})
+});
