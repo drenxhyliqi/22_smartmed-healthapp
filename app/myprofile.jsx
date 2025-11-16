@@ -61,6 +61,19 @@ export default function MyProfile() {
               </View>
             </TouchableOpacity>
           </View>
+          
+          <View style={{ marginTop: 30, alignItems: 'center' }}>
+          <TouchableOpacity 
+              style={styles.managementCard} 
+              onPress={() => router.push("/(management)/manageHospitals")}
+            >
+              <Ionicons name="people-outline" size={28} color="#fff" style={styles.cardIcon} />
+              <View style={styles.cardTextWrapper}>
+                <Text style={styles.managementTitle}>Management</Text>
+                <Text style={styles.managementSubtitle}>Manage Hospitals</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

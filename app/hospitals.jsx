@@ -31,10 +31,10 @@ const Homepage = () => {
                             size={24}
                             color={'#000000ff'} />
                     </Link>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Ambulance</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Hospitals</Text>
                 </View>
 
-                {/* Ambulance List */}
+                {/* Hospitals List */}
                 <FlatList
                     data={hospitals}
                     keyExtractor={(item) => item.id}

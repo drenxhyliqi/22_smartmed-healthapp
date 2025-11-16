@@ -54,8 +54,8 @@ const Homepage = () => {
                         <Link href="/pharmacy"><Text style={{ marginTop: 10 }}>Pharmacy</Text></Link>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Ionicons name="bus" size={25} color="#ffffffff" style={styles.ambulance}/>
-                        <Link href="/ambulance"><Text style={{ marginTop: 10 }}>Ambulance</Text></Link>
+                        <Ionicons name="bus" size={25} color="#ffffffff" style={styles.hospitals}/>
+                        <Link href="/hospitals"><Text style={{ marginTop: 10 }}>Hospitals</Text></Link>
                     </View>
                 </View>
 
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 30
     },
-    ambulance : {
+    hospitals : {
         backgroundColor: '#407CE2',
         padding: 15,
         borderRadius: 30
