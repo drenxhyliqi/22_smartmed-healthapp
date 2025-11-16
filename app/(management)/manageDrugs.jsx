@@ -28,8 +28,6 @@ const PharmacyCRUDScreen = () => {
     };
 
     useEffect(() => { fetchItems(); }, []);
-
-    // ✅ FIXED: Missing edit function
     const editItem = (item) => {
         setCurrentItem(item);
         setTitle(item.title);
@@ -68,7 +66,6 @@ const PharmacyCRUDScreen = () => {
         }
     };
 
-    // ✅ FIXED DELETE ALERT FORMAT
     const removeItem = (item) => {
         Alert.alert(
             "Delete Item",
