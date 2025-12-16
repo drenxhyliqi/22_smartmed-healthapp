@@ -189,6 +189,9 @@ const HospitalCRUDScreen = () => {
                 data={hospitals}
                 keyExtractor={(item) => item.id}
                 renderItem={renderHospital}
+                initialNumToRender={5}        // sa item ngarkohen fillimisht
+                windowSize={10}               // sa item të tjera ngarkohen gjatë scroll
+                removeClippedSubviews={true}  // çaktivizon imazhet jashtë viewport
                 contentContainerStyle={styles.listContent}
             />
 
