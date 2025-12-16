@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View, StatusBar, ActivityIndicator, Alert } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef} from 'react';
 import { Link } from 'expo-router';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import { scheduleReminderAtDate } from '../app/utils/notifications';
 import { TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Notifications from 'expo-notifications';
+import { Animated } from 'react-native';
 
 
 
@@ -23,7 +24,8 @@ const PharmacyHomepage = () => {
     const [selectedMedication, setSelectedMedication] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
     const [successText, setSuccessText] = useState('');
-
+    const scaleAnim = useRef(new Animated.Value(0)).current;
+    const opacityAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         Notifications.requestPermissionsAsync();},
@@ -74,14 +76,34 @@ const onTimeChange = (event, time) => {
 
     setShowPicker(false);
     setPickerMode('date');
-
+        
     await scheduleReminderAtDate(selectedDate, selectedMedication);
+        playSuccessAnimation();
+    };
+    const playSuccessAnimation = () => {
+    setShowSuccess(true);
 
-    Alert.alert(
-        'Reminder Set',
-        `Reminder set for ${selectedDate.toLocaleString()}`
-    );
+    scaleAnim.setValue(0.5);
+    opacityAnim.setValue(0);
+
+    Animated.parallel([
+        Animated.timing(scaleAnim, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+        }),
+    ]).start();
+
+    setTimeout(() => {
+        setShowSuccess(false);
+    }, 1500);
 };
+
 
 
 
@@ -210,8 +232,24 @@ const onTimeChange = (event, time) => {
                 </TouchableOpacity>
             )}
         </View>
+                </View>)}
+            {showSuccess && (
+    <View style={styles.successOverlay}>
+        <Animated.View
+            style={[
+                styles.successBox,
+                {
+                    transform: [{ scale: scaleAnim }],
+                    opacity: opacityAnim,
+                },
+            ]}
+        >
+            <Ionicons name="checkmark-circle" size={80} color="#407CE2" />
+            <Text style={styles.successText}>Reminder Set</Text>
+        </Animated.View>
     </View>
 )}
+
         </SafeAreaView>
     );
 };
@@ -353,4 +391,29 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: '600',
     },
+    successOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+
+successBox: {
+    backgroundColor: '#fff',
+    padding: 30,
+    borderRadius: 20,
+    alignItems: 'center',
+},
+
+successText: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#407ce3',
+},
+
 });
