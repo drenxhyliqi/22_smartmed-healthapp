@@ -30,21 +30,16 @@ const SkeletonItem = () => {
 const Hospitals = () => {
     const [hospitals, setHospitals] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // animacion fade-in per listen
     const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    // useMemo per vlere qe nuk llogaritet ne cdo render
     const hospitalCount = useMemo(() => hospitals.length, [hospitals]);
 
-    // useCallback per renderItem qe mos te rikrijohet cdo here
     const renderHospitalItem = useCallback(({ item }) => (
         <View style={styles.listItem}>
             <Image
                 source={{ uri: item.image || 'https://via.placeholder.com/100' }}
                 style={styles.listImage}
                 contentFit="cover"
-                transition={300} // animacion i lehte kur ngarkohet imazhi
+                transition={300}
             />
             <View style={{ flex: 1 }}>
                 <Text style={styles.listTitle} numberOfLines={1}>
@@ -59,34 +54,27 @@ const Hospitals = () => {
 
     useEffect(() => {
         const ref = collection(db, 'hospitals');
-
         const unsubscribe = onSnapshot(ref, snapshot => {
             const list = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
             }));
-
             setHospitals(list);
             setLoading(false);
-
-            // starton animacionin pasi te mbaroje loading
             Animated.timing(fadeAnim, {
                 toValue: 1,
                 duration: 400,
                 useNativeDriver: true,
             }).start();
         });
-
         return unsubscribe;
     }, []);
 
     return (
         <SafeAreaView style={styles.container} edges={[]}>
             <StatusBar barStyle="light-content" backgroundColor="#407CE2" />
-
             {loading ? (
                 <View style={styles.content}>
-                    {/* skeleton loading */}
                     {[1, 2, 3, 4, 5].map(item => (
                         <SkeletonItem key={item} />
                     ))}
@@ -99,18 +87,16 @@ const Hospitals = () => {
                         </Link>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Hospitals</Text>
                     </View>
-
                     <FlatList
                         data={hospitals}
                         keyExtractor={item => item.id}
                         renderItem={renderHospitalItem}
                         showsVerticalScrollIndicator={false}
-                        initialNumToRender={5}   // lazy render i item-eve
+                        initialNumToRender={5}
                         windowSize={10}
                         removeClippedSubviews
                         contentContainerStyle={{ paddingBottom: 50 }}
                     />
-
                     <Text style={[styles.available]}>{hospitalCount} hospitals available</Text>
                 </Animated.View>
             )}
@@ -166,8 +152,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginRight: 10,
     },
-
-    // styles per skeleton loading
     skeletonItem: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -191,14 +175,14 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     available: {
-    marginTop: 12,
-    alignSelf: 'center',
-    backgroundColor: '#E8F0FE',
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 20,
-    color: '#407CE2',
-    fontSize: 14,
-    fontWeight: '600',
-}
+        marginTop: 12,
+        alignSelf: 'center',
+        backgroundColor: '#E8F0FE',
+        paddingHorizontal: 14,
+        paddingVertical: 6,
+        borderRadius: 20,
+        color: '#407CE2',
+        fontSize: 14,
+        fontWeight: '600',
+    }
 });
