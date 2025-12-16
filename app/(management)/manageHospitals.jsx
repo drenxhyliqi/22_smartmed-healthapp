@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, FlatList, Modal, Alert, Image } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    FlatList,
+    Modal,
+    Alert,
+    Image
+} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import { db, storage } from "../../firebase";
 import { useRouter } from "expo-router";
 
 const HospitalCRUDScreen = () => {
-
     const router = useRouter();
 
     const [hospitals, setHospitals] = useState([]);
@@ -16,6 +27,7 @@ const HospitalCRUDScreen = () => {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [image, setImage] = useState("");
+    const [pickedImage, setPickedImage] = useState(null);
 
     const hospitalsRef = collection(db, "hospitals");
 
@@ -25,40 +37,92 @@ const HospitalCRUDScreen = () => {
         setHospitals(arr);
     };
 
-    useEffect(() => {
-        fetchHospitals();
-    }, []);
-
-    const saveHospital = async () => {
-        if (!name.trim() || !location.trim() || !image.trim()) {
-            Alert.alert("Validation Error", "Please fill all the fields.");
-            return;
-        }
-
-        try {
-            if (currentHospital) {
-                const hospitalDoc = doc(db, "hospitals", currentHospital.id);
-                await updateDoc(hospitalDoc, { name, location, image });
-                Alert.alert("Success", "Hospital updated successfully!");
-            } else {
-                await addDoc(hospitalsRef, { name, location, image });
-                Alert.alert("Success", "Hospital added successfully!");
-            }
-
-            setName(""); setLocation(""); setImage(""); setCurrentHospital(null);
-            setModalVisible(false);
-            fetchHospitals();
-        } catch (error) {
-            Alert.alert("Error", error.message);
-        }
-    };
+    useEffect(() => { fetchHospitals(); }, []);
 
     const editHospital = (hospital) => {
         setCurrentHospital(hospital);
         setName(hospital.name);
         setLocation(hospital.location);
         setImage(hospital.image);
+        setPickedImage(null);
         setModalVisible(true);
+    };
+
+    const chooseImageSource = () => {
+        Alert.alert(
+            "Select Image",
+            "Choose image source",
+            [
+                { text: "Camera", onPress: openCamera },
+                { text: "Gallery", onPress: pickFromGallery },
+                { text: "Cancel", style: "cancel" }
+            ]
+        );
+    };
+
+    const pickFromGallery = async () => {
+        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permission.granted) {
+            Alert.alert("Permission required", "Gallery access is required.");
+            return;
+        }
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.7
+        });
+        if (!result.canceled) setPickedImage(result.assets[0].uri);
+    };
+
+    const openCamera = async () => {
+        const permission = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permission.granted) {
+            Alert.alert("Permission required", "Camera access is required.");
+            return;
+        }
+        const result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.7
+        });
+        if (!result.canceled) setPickedImage(result.assets[0].uri);
+    };
+
+    const uploadImageAsync = async (uri) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        const imageRef = ref(storage, `hospitals/${Date.now()}.jpg`);
+        await uploadBytes(imageRef, blob);
+        return await getDownloadURL(imageRef);
+    };
+
+    const saveHospital = async () => {
+        if (!name.trim() || !location.trim()) {
+            Alert.alert("Validation Error", "Please fill all the fields.");
+            return;
+        }
+
+        try {
+            let imageUrl = image || null;
+            if (pickedImage) {
+                imageUrl = await uploadImageAsync(pickedImage);
+            }
+
+            if (currentHospital) {
+                await updateDoc(doc(db, "hospitals", currentHospital.id), { name, location, image: imageUrl });
+                Alert.alert("Success", "Hospital updated successfully!");
+            } else {
+                await addDoc(hospitalsRef, { name, location, image: imageUrl });
+                Alert.alert("Success", "Hospital added successfully!");
+            }
+
+            setName(""); setLocation(""); setImage(""); setPickedImage(null); setCurrentHospital(null);
+            setModalVisible(false);
+            fetchHospitals();
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
     };
 
     const removeHospital = (hospital) => {
@@ -81,15 +145,11 @@ const HospitalCRUDScreen = () => {
 
     const renderHospital = ({ item }) => (
         <View style={styles.card}>
-            {item.image ? (
-                <Image source={{ uri: item.image }} style={styles.cardImage} />
-            ) : null}
-
+            {item.image && <Image source={{ uri: item.image }} style={styles.cardImage} />}
             <View style={styles.cardText}>
                 <Text style={styles.cardTitle}>{item.name}</Text>
                 <Text style={styles.cardSubtitle}>{item.location}</Text>
             </View>
-
             <View style={styles.cardActions}>
                 <TouchableOpacity style={styles.editBtn} onPress={() => editHospital(item)}>
                     <Ionicons name="pencil" size={18} color="#fff" />
@@ -113,7 +173,13 @@ const HospitalCRUDScreen = () => {
                     <Text style={styles.goBackText}>Back</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+                <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={() => {
+                        setModalVisible(true);
+                        setName(""); setLocation(""); setImage(""); setPickedImage(null); setCurrentHospital(null);
+                    }}
+                >
                     <Ionicons name="add" size={20} color="#fff" />
                     <Text style={styles.addButtonText}>Add Hospital</Text>
                 </TouchableOpacity>
@@ -128,12 +194,12 @@ const HospitalCRUDScreen = () => {
 
             <Modal
                 transparent={true}
-                animationType="slide"
+                animationType="fade"
                 visible={modalVisible}
                 onRequestClose={() => {
                     setModalVisible(false);
                     setCurrentHospital(null);
-                    setName(""); setLocation(""); setImage("");
+                    setName(""); setLocation(""); setImage(""); setPickedImage(null);
                 }}
             >
                 <View style={styles.modalContainer}>
@@ -142,6 +208,15 @@ const HospitalCRUDScreen = () => {
                         <Text style={styles.modalHeading}>
                             {currentHospital ? "Edit Hospital" : "Add Hospital"}
                         </Text>
+
+                        {/* Image Picker */}
+                        <TouchableOpacity style={styles.imagePicker} onPress={chooseImageSource}>
+                            {(pickedImage || image) ? (
+                                <Image source={{ uri: pickedImage || image }} style={styles.previewImage} />
+                            ) : (
+                                <Text style={{ color: "#333" }}>Select Image</Text>
+                            )}
+                        </TouchableOpacity>
 
                         <View style={styles.inputWrapper}>
                             <Ionicons name="business" size={20} color="#555" style={styles.inputIcon} />
@@ -165,17 +240,6 @@ const HospitalCRUDScreen = () => {
                             />
                         </View>
 
-                        <View style={styles.inputWrapper}>
-                            <Ionicons name="image" size={20} color="#555" style={styles.inputIcon} />
-                            <TextInput
-                                placeholder="Image URL"
-                                placeholderTextColor="#555"
-                                value={image}
-                                onChangeText={setImage}
-                                style={styles.inputInner}
-                            />
-                        </View>
-
                         <View style={styles.modalButtons}>
                             <TouchableOpacity style={styles.saveBtn} onPress={saveHospital}>
                                 <Text style={styles.btnText}>{currentHospital ? "Update" : "Save"}</Text>
@@ -186,7 +250,7 @@ const HospitalCRUDScreen = () => {
                                 onPress={() => {
                                     setModalVisible(false);
                                     setCurrentHospital(null);
-                                    setName(""); setLocation(""); setImage("");
+                                    setName(""); setLocation(""); setImage(""); setPickedImage(null);
                                 }}
                             >
                                 <Text style={styles.btnText}>Cancel</Text>
@@ -301,10 +365,21 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
 
+    imagePicker: {
+        height: 140,
+        backgroundColor: "#eee",
+        borderRadius: 12,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 15,
+        overflow: "hidden"
+    },
+    previewImage: { width: "100%", height: "100%" },
+
     inputWrapper: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#fdfdfd",
+        backgroundColor: "#f5f5f5",
         borderRadius: 12,
         paddingHorizontal: 12,
         marginBottom: 15,
