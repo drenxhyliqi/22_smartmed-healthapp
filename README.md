@@ -91,6 +91,10 @@ Para se të filloni, sigurohuni që keni instaluar:
    <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/1c1c58ca-9896-449b-b69c-31e3016d2ccf" />
    <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/608d8476-0f11-416e-bbaa-8305eac6bd72" />
    <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/ab0c368d-0e59-447a-bc62-06d323e0f515" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/711699bd-a5d9-443a-978c-f20152e3977f" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/e1e48469-356b-431b-b277-36bacfa1abc7" />
+
+
 
 
 
