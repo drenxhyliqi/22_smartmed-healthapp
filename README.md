@@ -77,3 +77,26 @@ Para se të filloni, sigurohuni që keni instaluar:
 2. Donart Spahiu 
 3. Dren Xhyliqi 
 4. Edison Ndou
+
+## Pamje të aplikacionit
+
+
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/88ed255b-689d-4832-85b7-efef56e4a61e" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/3565da6a-622e-4107-a362-f1d92591a67d" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/c4a2f7f7-2f34-48ff-a044-35f14e2e0c67" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/77c0d38c-4673-40b1-b5d1-716adc813878" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/e6d1ba47-ded3-4390-90b6-50dca6afb1c6" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/f9bf2bbc-83fc-4af8-b9b1-fa047f60ee10" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/0941d956-2a41-4518-8b01-1c28cddb672a" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/1c1c58ca-9896-449b-b69c-31e3016d2ccf" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/608d8476-0f11-416e-bbaa-8305eac6bd72" />
+   <img width="180" height="350" alt="image" src="https://github.com/user-attachments/assets/ab0c368d-0e59-447a-bc62-06d323e0f515" />
+
+
+
+
+
+
+
+
+
