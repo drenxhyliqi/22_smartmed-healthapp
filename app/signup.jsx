@@ -5,8 +5,7 @@ import { Link, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../firebase"; 
-
+import { auth, db } from "../firebase";
 
 
 const Signup = () => {
@@ -40,42 +39,41 @@ const Signup = () => {
       return;
     }
 
-    setErrorMessage(""); 
+    setErrorMessage("");
     try {
-    // Krijohet user-in në Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email.trim(),
-      password
-    );
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
+      );
 
-    const user = userCredential.user;
+      const user = userCredential.user;
 
-    // Ruajtja në Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      username: name.trim(),
-      email: email.trim(),
-      password: password,
-      heart_rate: 0,
-      calories: 0,
-      weight: 0,
-      role: "client",
-      createdAt: new Date(),
-    });
+      // firestore
+      await setDoc(doc(db, "users", user.uid), {
+        username: name.trim(),
+        email: email.trim(),
+        password: password,
+        heart_rate: 0,
+        calories: 0,
+        weight: 0,
+        role: "client",
+        createdAt: new Date(),
+      });
 
-    console.log("User created:", user.uid);
+      console.log("User created:", user.uid);
 
-    navigation.navigate("signin");
+      navigation.navigate("signin");
 
-  } catch (error) {
-    setErrorMessage(error.message);
-  }
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
   return (
     <SafeAreaView style={styles.container} edges={[]}>
-        <Link href={'/start'} style={styles.goBack}>
-          <Ionicons name={'arrow-back-sharp'} size={24} color={'#407CE2'} />
-        </Link>
+      <Link href={'/start'} style={styles.goBack}>
+        <Ionicons name={'arrow-back-sharp'} size={24} color={'#407CE2'} />
+      </Link>
       <View style={styles.headerRow}>
         <Text style={styles.headerTitle}>Sign Up</Text>
         <View style={{ width: 24 }} />
@@ -125,6 +123,7 @@ const Signup = () => {
           </View>
 
           <TouchableOpacity
+            testID="terms-checkbox"
             style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}
             onPress={() => setChecked(!checked)}
           >
@@ -140,25 +139,25 @@ const Signup = () => {
               <Text style={{ color: '#407CE2', fontWeight: 'bold' }}> Privacy Policy</Text>
             </Text>
           </TouchableOpacity>
-            {errorMessage ? (
-              <Text style={{ color: 'red', marginBottom: 10, textAlign: 'center' }}>
-            {errorMessage}
-              </Text>
-                ) : null}
+          {errorMessage ? (
+            <Text style={{ color: 'red', marginBottom: 10, textAlign: 'center' }}>
+              {errorMessage}
+            </Text>
+          ) : null}
 
         </View>
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.signupButton} onPress={handleSignup}
->
+        <TouchableOpacity testID="signup-button" style={styles.signupButton} onPress={handleSignup}
+        >
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Text style={{fontSize: 17}}>Already have an account?  </Text>
+          <Text style={{ fontSize: 17 }}>Already have an account?  </Text>
           <TouchableOpacity onPress={() => navigation.navigate('signin')}>
-            <Text style={{ color: '#407CE2', fontWeight: 'bold', fontSize: 17}}>Sign In</Text>
+            <Text style={{ color: '#407CE2', fontWeight: 'bold', fontSize: 17 }}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -171,7 +170,7 @@ export default Signup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingVertical: 60,
@@ -190,8 +189,9 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     textAlign: 'center',
-    marginBottom:10  },
-    formContainer: {
+    marginBottom: 10
+  },
+  formContainer: {
     width: '85%',
   },
   inputContainer: {
